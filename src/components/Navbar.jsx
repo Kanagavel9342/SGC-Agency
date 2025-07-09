@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { FaBars, FaTimes, FaPhoneAlt } from "react-icons/fa";
 import { MdTravelExplore } from "react-icons/md";
 import MobileMenu from "./MobileMenu";
-import "../styles/navbar.css";
+import "../Styles/navbar.css";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
