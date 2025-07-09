@@ -11,7 +11,7 @@ import Services from './pages/service';
 import Vehicles from  './pages/Vehicles';
 import Contact from './pages/Contect';
 import './Styles/main.css';
-import './styles/animation.css';
+import './Styles/animation.css';
 
 function App() {
   return (
