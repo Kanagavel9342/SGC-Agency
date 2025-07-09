@@ -1,0 +1,106 @@
+:root {
+  --primary-color: #00a896;
+  --secondary-color: #f77f00;
+  --dark-color: #05668d;
+  --light-color: #f0f3bd;
+  --white: #ffffff;
+  --black: #333333;
+  --gray: #f5f5f5;
+  --dark-gray: #777777;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--black);
+  background-color: var(--white);
+  overflow-x: hidden;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+section {
+  padding: 80px 0;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+p {
+  line-height: 1.6;
+  color: var(--dark-gray);
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.primary-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: 2px solid var(--primary-color);
+}
+
+.primary-btn:hover {
+  background-color: transparent;
+  color: var(--primary-color);
+}
+
+.secondary-btn {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+.secondary-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 15px;
+  color: var(--dark-color);
+  font-size: 2.5rem;
+}
+
+.section-subtitle {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 1.1rem;
+  color: var(--dark-gray);
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 60px 0;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+}
