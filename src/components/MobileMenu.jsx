@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes } from 'react-icons/fa';
-import '../styles/navbar.css';
+import '../Styles/navbar.css';
 
 const MobileMenu = ({ isOpen, closeMenu }) => {
   const navLinks = [

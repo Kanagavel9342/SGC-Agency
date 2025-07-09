@@ -9,7 +9,7 @@ import {
   FaUserTie,
   FaRupeeSign,
 } from "react-icons/fa";
-import "../styles/about.css";
+import "../Styles/about.css";
 
 const About = () => {
   const reviews = [

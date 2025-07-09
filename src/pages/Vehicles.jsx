@@ -16,7 +16,7 @@ import {
   ListGroup,
   Modal,
 } from "react-bootstrap";
-import "../styles/vehicles.css";
+import "../Styles/vehicles.css";
 
 const Vehicles = () => {
   const [showModal, setShowModal] = useState(false);

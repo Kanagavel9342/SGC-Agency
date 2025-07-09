@@ -1,5 +1,5 @@
 import React from 'react';
-import "../styles/packages.css";
+import "../Styles/packages.css";
 
 const packages = [
   {

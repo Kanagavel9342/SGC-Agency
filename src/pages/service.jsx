@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import '../styles/services.css';
+import '../Styles/services.css';
 
 const Services = () => {
   const services = [

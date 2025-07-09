@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import "../styles/home.css";
+import "../Styles/home.css";
 
 const Home = () => {
   const navigate = useNavigate();
