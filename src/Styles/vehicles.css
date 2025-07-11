@@ -160,9 +160,7 @@
 
 /* Responsive Adjustments - Updated */
 @media (max-width: 768px) {
-  .vehicle-main-image {
-    height: 150px;
-  }
+  
   .text-primary{
   padding-top: 4%;
 }
@@ -182,9 +180,7 @@
 }
 
 @media (max-width: 576px) {
-  .text-primary{
-  padding-top: 76%;
-}
+ 
   .vehicle-main-image {
     height: 130px;
   }
