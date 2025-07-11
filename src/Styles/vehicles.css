@@ -5,8 +5,11 @@
   background-color: #f8f9fa;
   min-height: 100vh;
   padding-bottom: 2rem;
+  
 }
-
+.text-primary{
+  padding-top: 4%;
+}
 /* Header Styles */
 .vehicles-page h1 {
   font-weight: 700;
@@ -160,6 +163,9 @@
   .vehicle-main-image {
     height: 150px;
   }
+  .text-primary{
+  padding-top: 4%;
+}
   
   .thumbnail-img {
     width: 60px;
@@ -176,6 +182,9 @@
 }
 
 @media (max-width: 576px) {
+  .text-primary{
+  padding-top: 76%;
+}
   .vehicle-main-image {
     height: 130px;
   }

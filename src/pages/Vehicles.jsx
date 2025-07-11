@@ -259,7 +259,7 @@ const Vehicles = () => {
     <Container className="vehicles-page py-5">
       <Row className="mb-5 text-center">
         <Col>
-          <h1 className="text-primary">Our Vehicle Fleet</h1>
+          <h1 className="text-primary ">Our Vehicle Fleet</h1>
           <p className="lead text-muted">
             Choose from our well-maintained vehicles for your comfortable
             journey
