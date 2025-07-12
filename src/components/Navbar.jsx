@@ -42,7 +42,7 @@ const Navbar = () => {
           </div>
 
           <div className="nav-contact">
-            <FaPhoneAlt className="phone-icon" />
+            <FaPhoneAlt className="phone-icon-" />
             <span>+91 9003414107</span>
           </div>
 

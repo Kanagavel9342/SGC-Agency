@@ -7,7 +7,7 @@
 
 /* Hero Banner */
 .about-hero-banner {
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/images/cab-bg.jpg');
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/sgc/public/hero.jpg');
   background-size: cover;
   background-position: center;
   color: white;
@@ -39,7 +39,7 @@
 }
 
 .about-owner-info h3 {
-  color: #e74c3c;
+  color: #090cd4;
   margin-bottom: 15px;
 }
 
@@ -95,7 +95,7 @@
 
 .about-service-icon {
   font-size: 2.5rem;
-  color: #e74c3c;
+  color: #C79524;
   margin-bottom: 15px;
 }
 
@@ -124,11 +124,11 @@
   background: #f8f9fa;
   padding: 20px;
   border-radius: 8px;
-  border-left: 4px solid #e74c3c;
+  border-left: 4px solid #C79524;
 }
 
 .about-timeline-item h3 {
-  color: #e74c3c;
+  color:#C79524;
   margin-bottom: 10px;
 }
 

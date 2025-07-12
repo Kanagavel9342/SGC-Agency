@@ -28,10 +28,8 @@ const Home = () => {
   const heroImages = [
     "/images/Hero.jpg",
     "/images/Hero2.jpeg",
-     "/images/Hero3.jpg",
-      "/images/Hero4.jpg"
-
-
+    "/images/Hero3.jpg",
+    "/images/Hero4.jpg",
   ];
 
   const services = [
@@ -54,25 +52,6 @@ const Home = () => {
       title: "Corporate Travel",
       description: "Reliable transportation for business needs",
       icon: "💼",
-    },
-  ];
-
-  const packages = [
-    {
-      id: 1,
-      title: "Weekend Getaway",
-      description: "Perfect 2-day trip package to nearby hill stations",
-      price: "₹5,999",
-      duration: "2 Days",
-      highlights: ["Scenic routes", "Comfortable stay", "Sightseeing"],
-    },
-    {
-      id: 2,
-      title: "Pilgrimage Tour",
-      description: "Spiritual journey to South India's famous temples",
-      price: "₹12,999",
-      duration: "5 Days",
-      highlights: ["All temple darshan", "AC vehicle", "Guide service"],
     },
   ];
 
@@ -111,16 +90,16 @@ const Home = () => {
     },
     {
       id: 2,
-      name: "Priya Sharma",
+      name: "Priya dharshini",
       rating: 4,
       comment:
         "Very good service overall. The driver was punctual and the vehicle was comfortable.",
-      location: "Bangalore, India",
+      location: "Maduari, India",
       date: "1 month ago",
     },
     {
       id: 3,
-      name: "Arun Patel",
+      name: "Arun ",
       rating: 5,
       comment:
         "Best cab service I've used in India. The driver knew all the routes perfectly and was very courteous.",
@@ -289,47 +268,6 @@ const Home = () => {
         </Container>
       </section>
 
-      {/* Packages Section */}
-      <section className="packages-section py-5 bg-light">
-        <Container>
-          <Row className="mb-4">
-            <Col className="text-center">
-              <h2>Popular Travel Packages</h2>
-              <p className="subtitle">
-                Curated experiences for memorable journeys
-              </p>
-            </Col>
-          </Row>
-
-          <Row>
-            {packages.map((pkg) => (
-              <Col md={6} key={pkg.id} className="mb-4">
-                <motion.div
-                  className="package-card h-100"
-                  whileHover={{ y: -5 }}
-                  onClick={() => navigateTo("/packages")}
-                >
-                  <div className="package-header">
-                    <h3>{pkg.title}</h3>
-                    <span className="package-price">{pkg.price}</span>
-                  </div>
-                  <p className="package-duration">{pkg.duration}</p>
-                  <p className="package-description">{pkg.description}</p>
-                  <ul className="package-highlights">
-                    {pkg.highlights.map((item, i) => (
-                      <li key={i}>{item}</li>
-                    ))}
-                  </ul>
-                  <button className="view-button">
-                    View Details <IoIosArrowForward />
-                  </button>
-                </motion.div>
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      </section>
-
       {/* Vehicles Section */}
       <section className="vehicles-section py-5">
         <Container>
@@ -486,7 +424,7 @@ const Home = () => {
               <Row>
                 <Col md={6} className="mb-4">
                   <div className="contact-method">
-                    <div className="contact-icon-container">
+                    <div className="contact-icon-container-">
                       <FaPhone className="contact-icon" />
                     </div>
                     <div className="contact-details">
@@ -501,7 +439,7 @@ const Home = () => {
 
                 <Col md={6} className="mb-4">
                   <div className="contact-method">
-                    <div className="contact-icon-container">
+                    <div className="contact-icon-container-">
                       <FaWhatsapp className="contact-icon" />
                     </div>
                     <div className="contact-details">
@@ -521,7 +459,7 @@ const Home = () => {
 
                 <Col md={6} className="mb-4">
                   <div className="contact-method">
-                    <div className="contact-icon-container">
+                    <div className="contact-icon-container-">
                       <FaEnvelope className="contact-icon" />
                     </div>
                     <div className="contact-details">
@@ -539,7 +477,7 @@ const Home = () => {
 
                 <Col md={6} className="mb-4">
                   <div className="contact-method">
-                    <div className="contact-icon-container">
+                    <div className="contact-icon-container-">
                       <FaMapMarkerAlt className="contact-icon" />
                     </div>
                     <div className="contact-details">

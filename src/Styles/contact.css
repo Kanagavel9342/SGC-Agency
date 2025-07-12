@@ -1,63 +1,290 @@
-.contact-page {
-  padding: 2rem;
-}
-
+/* contact.css - Fully scoped styles for Contact component only */
 .contact-container {
-  display: flex;
-  gap: 3rem;
-  margin-top: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  line-height: 1.6;
 }
 
-.contact-info {
-  flex: 1;
-  background-color: var(--light-gray);
-  padding: 2rem;
+/* Hero Section */
+.contact-hero-section {
+  background-color: #f8f9fa;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.contact-main-title {
+  color: #C79524;
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.contact-subtitle {
+  font-size: 1.25rem;
+  color: #666;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Contact Methods Section */
+.contact-methods-section {
+  padding: 3rem 0;
+}
+
+.contact-primary-col {
+  margin-bottom: 2rem;
+}
+
+.contact-method-card {
+  background: white;
+  border-left: 4px solid #C79524;
   border-radius: 8px;
-}
-
-.contact-info h2 {
-  color: var(--primary-green);
-  margin-bottom: 1rem;
-}
-
-.contact-info p {
-  margin-bottom: 1rem;
-}
-
-.contact-form {
-  flex: 1;
-}
-
-.form-group {
+  padding: 1.5rem;
+  height: 100%;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
   margin-bottom: 1.5rem;
 }
 
-.form-group label {
+.contact-method-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+}
+
+.contact-method-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.contact-method-icon {
+  width: 50px;
+  height:50px;
+  background-color: #C79524;
+  border-radius: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+}
+
+.contact-icon- {
+  color: white;
+  font-size: 30px;
+}
+
+.contact-method-card h3 {
+  font-size: 1.3rem;
+  margin: 0;
+  color: #333;
+}
+
+.contact-method-link {
   display: block;
+  font-size: 1.1rem;
+  color: #333;
+  text-decoration: none;
   margin-bottom: 0.5rem;
-  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-family: inherit;
+.contact-method-link:hover {
+  color: #C79524;
+  text-decoration: underline;
 }
 
-.submit-button {
-  background-color: var(--primary-green);
-  color: var(--white);
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 4px;
+.contact-method-text {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-method-description {
+  color: #666;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Social Media Section */
+.contact-social-card {
+  background: #f8f9fa;
+  border-left: 4px solid #C79524;
+  border-radius: 8px;
+  padding: 1.5rem;
+  height: 100%;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+.contact-social-title {
+  color: #C79524;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-social-media h4 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.contact-social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.contact-social-link {
+  display: flex;
+  align-items: center;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contact-social-link:hover {
+  color: #C79524;
+}
+
+.contact-social-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #C79524;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.contact-social-link span {
   font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.submit-button:hover {
-  background-color: var(--dark-green);
+/* Operating Hours */
+.contact-operating-hours {
+  margin-top: 1.5rem;
+}
+
+.contact-hours-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.contact-hours-icon {
+  color: #C79524;
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.contact-operating-hours h4 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.contact-hours-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-hours-list li {
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.contact-hours-list li:before {
+  content: "•";
+  color: #C79524;
+  position: absolute;
+  left: 0;
+}
+
+/* Map Section */
+.contact-map-section {
+  padding: 3rem 0;
+  background-color: #f8f9fa;
+}
+
+.contact-map-header {
+  margin-bottom: 2rem;
+}
+
+.contact-map-header h2 {
+  color: #C79524;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.contact-map-header p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.contact-map-container {
+  width: 100%;
+  height: 400px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.contact-map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .contact-primary-col {
+    margin-bottom: 2rem;
+  }
+  
+  .contact-social-card {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-hero-section {
+    padding: 3rem 0;
+  }
+  
+  .contact-main-title {
+    font-size: 2rem;
+  }
+  
+  .contact-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .contact-method-card,
+  .contact-social-card {
+    padding: 1.25rem;
+  }
+  
+  .contact-map-container {
+    height: 350px;
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-main-title {
+    font-size: 1.8rem;
+  }
+  
+  .contact-method-icon,
+  .contact-social-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .contact-method-card h3 {
+    font-size: 1.2rem;
+  }
+  
+  .contact-map-container {
+    height: 300px;
+  }
 }

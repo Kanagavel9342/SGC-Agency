@@ -19,23 +19,24 @@ const About = () => {
       rating: 5,
       comment:
         "Excellent service! The driver was punctual and the bus was very clean.",
-      date: "15 Jan 2023",
+      date: "15 Jan 2025",
     },
     {
       id: 2,
-      name: "Priya Nair",
+      name: "Mohana Priya",
       rating: 4,
       comment:
         "Comfortable ride at reasonable rates. Will definitely use again.",
-      date: "22 Feb 2023",
+      date: "22 Feb 2025",
     },
+
     {
       id: 3,
-      name: "Vikram Singh",
+      name: "Raja",
       rating: 5,
       comment:
         "Reliable service even during long journeys. Professional drivers.",
-      date: "5 Mar 2023",
+      date: "5 Mar 2025",
     },
   ];
 
@@ -61,10 +62,10 @@ const About = () => {
             </p>
             <div className="about-owner-contact">
               <p>
-                <FaPhone /> +91 [PHONE NUMBER]
+                <FaPhone /> Call Us :+91 9003414107
               </p>
               <p>
-                <FaEnvelope /> [EMAIL ADDRESS]
+                <FaEnvelope /> Email :sreeganapathycaabs@gmail.com
               </p>
             </div>
           </div>
@@ -181,10 +182,10 @@ const About = () => {
             <FaMapMarkerAlt /> Coimbatore, Tamil Nadu
           </p>
           <p>
-            <FaPhone /> [PHONE NUMBER] (24/7 Support)
+            <FaPhone /> +91 9003414107 (24/7 Support)
           </p>
           <p>
-            <FaEnvelope /> [EMAIL ADDRESS]
+            <FaEnvelope /> Email sreeganapathycaabs@gmail.com
           </p>
         </div>
       </section>

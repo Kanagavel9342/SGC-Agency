@@ -197,79 +197,6 @@ h1, h2, h3, h4 {
   margin-bottom: 15px;
   color: var(--primary-color);
 }
-
-/* Packages Section */
-.packages-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  margin-top: 40px;
-}
-
-.package-card {
-  background: var(--white);
-  border-radius: 10px;
-  padding: 25px;
-  box-shadow: var(--shadow-md);
-  transition: var(--transition);
-  cursor: pointer;
-}
-
-.package-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-}
-
-.package-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.package-header h3 {
-  color: var(--primary-color);
-  font-size: 1.5rem;
-}
-
-.package-price {
-  font-weight: 700;
-  color: var(--primary-color);
-  font-size: 1.2rem;
-}
-
-.package-duration {
-  color: var(--gray-dark);
-  margin-bottom: 15px;
-}
-
-.package-highlights {
-  margin: 20px 0;
-  padding-left: 20px;
-}
-
-.package-highlights li {
-  margin-bottom: 8px;
-}
-
-.view-button {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: none;
-  border: none;
-  color: var(--primary-color);
-  font-weight: 600;
-  cursor: pointer;
-  padding: 0;
-  transition: var(--transition);
-}
-
-.view-button:hover {
-  color: var(--primary-dark);
-  transform: translateX(5px);
-}
-
 /* Vehicles Section */
 .vehicles-section {
   background-color: var(--white);
@@ -504,18 +431,17 @@ h1, h2, h3, h4 {
   gap: 20px;
 }
 
-.contact-icon-container {
-  width: 70px;
-  height: 70px;
+.contact-icon-container-{
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background-color: var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--white);
-  font-size: 1rem;
+  font-size: 1.2rem;
   flex-shrink: 0;
-  padding-left: 19px;
 }
 
 .contact-details h3 {
@@ -600,8 +526,9 @@ h1, h2, h3, h4 {
   .hero-section .carousel,
   .hero-section .carousel-inner,
   .hero-section .carousel-item {
-    height: 70vh;
-    min-height: 400px;
+    height: 60vh;
+    min-height: 370px;
+    
   }
   
   .hero-overlay h1 {
@@ -637,7 +564,7 @@ h1, h2, h3, h4 {
   .hero-section .carousel-inner,
   .hero-section .carousel-item {
     height: 70vh;
-    min-height: 400px;
+    min-height: 390px;
   }
   
   .hero-overlay h1 {
@@ -681,3 +608,4 @@ h1, h2, h3, h4 {
     font-size: 1.2rem;
   }
 }
+
