@@ -16,7 +16,7 @@ const Contact = () => {
   return (
     <div className="contact-container pt-5">
       <Helmet>
-        <title>Contact Sreegana Phy Cabs | 24/7 Cab Services</title>
+        <title>Sree GanaPhy Caabs | 24/7 Cab Services</title>
         <meta
           name="description"
           content="Reach Sreegana Phy Cabs via phone, WhatsApp, email, or social media. Available 24/7 for your transportation needs across Tamil Nadu."

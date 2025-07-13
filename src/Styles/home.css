@@ -340,12 +340,23 @@
   padding: 8px 10px; /* Adjusted padding */
   border-radius: 5px;
 }
-
+.social-link- {
+  display: flex;
+  align-items: center;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 8px 10px; /* Adjusted padding */
+  border-radius: 5px;
+}
 .social-link:hover {
   background: #f8f9fa;
   color: #007bff;
 }
-
+.social-link-:hover {
+  background: #f8f9fa;
+  color: #ff00ff;
+}
 .social-icon {
   font-size: 1rem; /* Reduced from 1.2rem */
   margin-right: 8px; /* Reduced from 10px */

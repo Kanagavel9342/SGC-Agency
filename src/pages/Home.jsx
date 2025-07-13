@@ -683,7 +683,7 @@ const Home = () => {
                 <Col md={6} className="mb-4">
                   <div className="contact-method">
                     <div className="contact-icon-container">
-                      <FaPhone className="contact-icon" />
+                      <FaPhone className="contact-icon-" />
                     </div>
                     <div className="contact-details">
                       <h3>Call Us</h3>
@@ -698,7 +698,7 @@ const Home = () => {
                 <Col md={6} className="mb-4">
                   <div className="contact-method">
                     <div className="contact-icon-container">
-                      <FaWhatsapp className="contact-icon" />
+                      <FaWhatsapp className="contact-icon-" />
                     </div>
                     <div className="contact-details">
                       <h3>WhatsApp</h3>
@@ -718,7 +718,7 @@ const Home = () => {
                 <Col md={6} className="mb-4">
                   <div className="contact-method">
                     <div className="contact-icon-container">
-                      <FaEnvelope className="contact-icon" />
+                      <FaEnvelope className="contact-icon-" />
                     </div>
                     <div className="contact-details">
                       <h3>Email</h3>
@@ -757,7 +757,7 @@ const Home = () => {
                     href="https://instagram.com/sreeganapathycaabs"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="social-link"
+                    className="social-link-"
                   >
                     <FaInstagram className="social-icon" />
                     <span>Instagram</span>
