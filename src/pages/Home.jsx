@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import {
   FaInstagram,
   FaEnvelope,
   FaMapMarkerAlt,
   FaClock,
-} from "react-icons/fa";
-import { motion } from "framer-motion";
-import {
   FaArrowRight,
   FaStar,
   FaQuoteLeft,
@@ -15,16 +13,19 @@ import {
   FaPhone,
   FaUserFriends,
   FaMoneyBillWave,
+  FaCar,
+  FaImages,
 } from "react-icons/fa";
+import { motion } from "framer-motion";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { Container, Row, Col, Carousel, Card, Button, ListGroup, Modal } from "react-bootstrap";
 import "../Styles/home.css";
-import { Container, Row, Col, Carousel } from "react-bootstrap";
 
 const Home = () => {
   const navigate = useNavigate();
 
-  // Hero images - update these paths to your actual image locations
+  // Hero images
   const heroImages = [
     "/images/Hero.jpg",
     "/images/Hero2.jpeg",
@@ -64,17 +65,177 @@ const Home = () => {
       dayRate: "₹1800/day",
       kmRate: "₹9/km",
       features: ["AC", "Fuel efficient", "Comfortable seating"],
-      image: "/images/vehicles/Swift Desire-Front.jpg",
+      images: [
+        "/images/vehicles/Swift Desire-dashboard.jpg",
+        "/images/vehicles/Swift Desire-Front.jpg",
+        "/images/vehicles/Swift Desire-inside.jpg",
+        "/images/vehicles/Swift Desire-inside2.jpg",
+      ],
     },
     {
       id: 2,
+      title: "Toyota Etios",
+      type: "Sedan",
+      capacity: "4 passengers",
+      dayRate: "₹1800/day",
+      kmRate: "₹9/km",
+      features: ["AC", "Spacious interior", "Comfortable ride", "Good mileage"],
+      images: [
+        "/images/vehicles/etios-front.jpg",
+        "/images/vehicles/etios-back.jpg",
+        "/images/vehicles/etios-inside.jpg",
+        "/images/vehicles/etios-inside2.jpg",
+      ],
+    },
+    {
+      id: 3,
       title: "Toyota Innova",
       type: "MPV",
       capacity: "7 passengers",
       dayRate: "₹2500/day",
       kmRate: "₹14/km",
       features: ["AC", "Spacious interior", "Comfortable for long rides"],
-      image: "/images/vehicles/innova-crysta-front.jpg",
+      images: [
+        "/images/vehicles/innova-front.jpg",
+        "/images/vehicles/innova-back.jpeg",
+        "/images/vehicles/innova-inside.jpg",
+        "/images/vehicles/innova-inside2.jpg",
+      ],
+    },
+    {
+      id: 4,
+      title: "Toyota Innova Crysta",
+      type: "Premium MPV",
+      capacity: "7 passengers",
+      dayRate: "₹3000/day",
+      kmRate: "₹15/km",
+      features: ["AC", "Premium interior", "Super comfortable"],
+      images: [
+        "/images/vehicles/innova-crysta-front.jpg",
+        "/images/vehicles/innova-crysta-back.jpeg",
+        "/images/vehicles/innova-crysta-inside.jpg",
+        "/images/vehicles/innova-crysta-inside2.jpeg",
+      ],
+    },
+    {
+      id: 5,
+      title: "Honda Amaze",
+      type: "Sedan",
+      capacity: "4 passengers",
+      dayRate: "₹2200/day",
+      kmRate: "₹12/km",
+      features: ["AC", "Premium sedan", "Great comfort", "Excellent mileage"],
+      images: [
+        "/images/vehicles/amaze-front.jpg",
+        "/images/vehicles/amaze-back.jpg",
+        "/images/vehicles/amaze-inside.jpg",
+        "/images/vehicles/amaze-outside.jpg",
+      ],
+    },
+    {
+      id: 6,
+      title: "Innova Hycross",
+      type: "Hybrid MPV",
+      capacity: "7 passengers",
+      dayRate: "₹4000/day",
+      kmRate: "₹20/km",
+      features: ["AC", "Hybrid technology", "Ultra comfortable"],
+      images: [
+        "/images/vehicles/hycross-front.jpg",
+        "/images/vehicles/hycross-back.jpg",
+        "/images/vehicles/hycross-inside.jpg",
+        "/images/vehicles/hycross-outside.jpg",
+      ],
+    },
+    {
+      id: 7,
+      title: "Force Urbania",
+      type: "Luxury Van",
+      capacity: "13-15 passengers",
+      dayRate: "₹10,000/day",
+      kmRate: "₹30/km",
+      features: ["AC", "Luxury interior", "Very spacious"],
+      images: [
+        "/images/vehicles/urbania-front.jpg",
+        "/images/vehicles/urbania-back.jpeg",
+        "/images/vehicles/urbania-inside.jpeg",
+        "/images/vehicles/urbania-inside2.jpeg",
+      ],
+    },
+    {
+      id: 8,
+      title: "Tempo Traveller",
+      type: "14 Seater",
+      capacity: "14 passengers",
+      dayRate: "₹3,500/day",
+      kmRate: "₹20/km",
+      features: ["AC", "Spacious", "Comfortable for groups"],
+      images: [
+        "/images/vehicles/tempo-14-front.jpg",
+        "/images/vehicles/tempo-14-back.jpg",
+        "/images/vehicles/tempo-14-inside.HEIC",
+        "/images/vehicles/tempo-14-inside2.jpg",
+      ],
+    },
+    {
+      id: 9,
+      title: "Tempo Traveller",
+      type: "18 Seater",
+      capacity: "18 passengers",
+      dayRate: "₹4,000/day",
+      kmRate: "₹20/km",
+      features: ["AC", "Very spacious", "Ideal for large groups"],
+      images: [
+        "/images/vehicles/tempo-18-front.jpg",
+        "/images/vehicles/tempo-18-back.jpg",
+        "/images/vehicles/tempo-18-inside.jpg",
+        "/images/vehicles/tempo-18-inside2.jpg",
+      ],
+    },
+    {
+      id: 10,
+      title: "25 Seater Mini Van",
+      type: "AC Mini Bus",
+      capacity: "25 passengers",
+      dayRate: "₹8,000/day",
+      kmRate: "₹30/km",
+      features: ["AC", "Very spacious", "Ideal for large groups"],
+      images: [
+        "/images/vehicles/minivan-front.jpg",
+        "/images/vehicles/minivan-back.jpg",
+        "/images/vehicles/minivan-inside.jpg",
+        "/images/vehicles/minivan-outside.jpg",
+      ],
+    },
+    {
+      id: 11,
+      title: "Volvo Bus",
+      type: "Luxury Bus",
+      capacity: "35-45 passengers",
+      dayRate: "₹21,000/day (150 kms free)",
+      kmRate: "₹110/km (extra)",
+      features: ["AC", "Ultra luxury", "Reclining seats"],
+      images: [
+        "/images/vehicles/volvo-front.JGP",
+        "/images/vehicles/volvo-back.HEIC",
+        "/images/vehicles/volvo-inside.JPG",
+        "/images/vehicles/volvo-outside.JPG",
+      ],
+    },
+    {
+      id: 12,
+      title: "Mercedes Benz E Class",
+      type: "Luxury Sedan",
+      capacity: "4 passengers",
+      dayRate: "5hr/50km: ₹7000 | 10hr/100km: ₹14000",
+      kmRate: "Extra: ₹1500/hr | ₹175/km",
+      features: ["Premium luxury", "Executive comfort", "Chauffeur driven"],
+      images: [
+        "/images/vehicles/mercedes-front.jpg",
+        "/images/vehicles/mercedes-back.jpg",
+        "/images/vehicles/mercedes-inside.jpg",
+        "/images/vehicles/mercedes-outside.jpg",
+      ],
     },
   ];
 
@@ -90,16 +251,16 @@ const Home = () => {
     },
     {
       id: 2,
-      name: "Priya dharshini",
+      name: "Priya Dharshini",
       rating: 4,
       comment:
         "Very good service overall. The driver was punctual and the vehicle was comfortable.",
-      location: "Maduari, India",
+      location: "Madurai, India",
       date: "1 month ago",
     },
     {
       id: 3,
-      name: "Arun ",
+      name: "Arun",
       rating: 5,
       comment:
         "Best cab service I've used in India. The driver knew all the routes perfectly and was very courteous.",
@@ -112,6 +273,9 @@ const Home = () => {
   const [currentReview, setCurrentReview] = useState(0);
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [showModal, setShowModal] = useState(false);
+  const [currentVehicle, setCurrentVehicle] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     const heroInterval = setInterval(() => {
@@ -155,11 +319,48 @@ const Home = () => {
     navigate(path);
   };
 
+  const handleWhatsAppClick = (vehicleName) => {
+    const message = `Hi Sree Ganapathy Cabs, I'm interested in renting your ${vehicleName}. Please provide more details.`;
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/919003414107?text=${encodedMessage}`);
+  };
+
+  const handlePhoneClick = () => {
+    window.location.href = "tel:+919003414107";
+  };
+
+  const openImageModal = (vehicle, index = 0) => {
+    setCurrentVehicle(vehicle);
+    setCurrentImageIndex(index);
+    setShowModal(true);
+  };
+
   const averageRating =
     reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
 
+
   return (
     <div className="home-page">
+      {/* SEO Meta Tags */}
+      <Helmet>
+        <title>Sree Ganapathy Cabs | Premium Cab Services Across India</title>
+        <meta
+          name="description"
+          content="Sree Ganapathy Cabs offers reliable and comfortable cab services in Coimbatore and across India. Book now for airport transfers, local sightseeing, and outstation trips."
+        />
+        <meta
+          name="keywords"
+          content="cab services, taxi service, car rental, Coimbatore cabs, airport transfer, outstation cabs, tempo traveller, luxury cabs"
+        />
+        <meta property="og:title" content="Sree Ganapathy Cabs" />
+        <meta
+          property="og:description"
+          content="Premium Cab Services Across India"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://sreeganapathycabs.com" />
+        <meta property="og:image" content="/images/logo.png" />
+      </Helmet>
       {/* Floating WhatsApp and Call buttons */}
       <div className="floating-buttons">
         <a
@@ -269,65 +470,122 @@ const Home = () => {
       </section>
 
       {/* Vehicles Section */}
-      <section className="vehicles-section py-5">
+      <section className="vehicles-section py-5 bg-light">
         <Container>
           <Row className="mb-4">
             <Col className="text-center">
               <h2>Our Vehicle Fleet</h2>
               <p className="subtitle">
-                Well-maintained vehicles for your comfortable journey
+                Choose from our well-maintained vehicles for your comfortable
+                journey
               </p>
             </Col>
           </Row>
 
-          <Row>
-            {vehicles.map((vehicle) => (
-              <Col lg={6} key={vehicle.id} className="mb-4">
-                <motion.div
-                  className="vehicle-card h-100"
-                  whileHover={{ y: -5 }}
-                  onClick={() => navigateTo("/vehicles")}
-                >
-                  <Row className="g-0">
-                    <Col md={5} className="vehicle-image-container">
-                      <img
-                        src={vehicle.image}
-                        alt={vehicle.title}
-                        className="vehicle-image img-fluid"
-                      />
-                    </Col>
-                    <Col md={7}>
-                      <div className="vehicle-details p-3">
-                        <h3>{vehicle.title}</h3>
-                        <p className="vehicle-type">{vehicle.type}</p>
-                        <div className="vehicle-specs mb-2">
-                          <span>
-                            <FaUserFriends /> {vehicle.capacity}
-                          </span>
-                          <span>
-                            <FaMoneyBillWave /> {vehicle.dayRate}
-                          </span>
-                        </div>
-                        <ul className="vehicle-features">
-                          {vehicle.features.map((feature, i) => (
-                            <li key={i}>{feature}</li>
-                          ))}
-                        </ul>
-                        <button className="view-button mt-2">
-                          View Options <IoIosArrowForward />
-                        </button>
-                      </div>
-                    </Col>
-                  </Row>
-                </motion.div>
+          <Row xs={1} md={2} lg={3} className="g-4">
+            {vehicles.slice(0, 6).map((vehicle, index) => (
+              <Col key={index}>
+                <Card className="h-100 shadow-sm border-0 vehicle-card">
+                  <div className="position-relative">
+                    {vehicle.images && vehicle.images.length > 0 && (
+                      <>
+                        <Card.Img
+                          variant="top"
+                          src={vehicle.images[0]}
+                          alt={vehicle.title}
+                          className="vehicle-main-image"
+                          onClick={() => openImageModal(vehicle, 0)}
+                        />
+                        <Button
+                          variant="light"
+                          className="position-absolute bottom-0 end-0 m-2 p-2 rounded-circle"
+                          onClick={() => openImageModal(vehicle, 0)}
+                        >
+                          <FaImages className="text-primary" />
+                        </Button>
+                      </>
+                    )}
+                    <span className="position-absolute top-0 end-0 bg-warning text-dark p-2 m-2 rounded-pill fw-bold">
+                      {vehicle.dayRate}
+                    </span>
+                  </div>
+
+                  <Card.Body>
+                    <Card.Title>
+                      {vehicle.title}
+                      <small className="d-block text-muted">
+                        {vehicle.type}
+                      </small>
+                    </Card.Title>
+
+                    <div className="d-flex justify-content-between mb-3">
+                      <span className="text-muted">
+                        <FaUserFriends className="text-primary me-1" />
+                        {vehicle.capacity}
+                      </span>
+                      <span className="text-muted">
+                        <FaMoneyBillWave className="text-primary me-1" />
+                        {vehicle.kmRate}
+                      </span>
+                    </div>
+
+                    <Card.Text>
+                      <strong>Features:</strong>
+                    </Card.Text>
+                    <ListGroup variant="flush" className="mb-3">
+                      {vehicle.features.map((feature, i) => (
+                        <ListGroup.Item
+                          key={i}
+                          className="d-flex align-items-center"
+                        >
+                          <FaCar className="text-primary me-2" size={12} />
+                          {feature}
+                        </ListGroup.Item>
+                      ))}
+                    </ListGroup>
+                  </Card.Body>
+
+                  <Card.Footer className="bg-white border-0">
+                    <div className="d-grid gap-2">
+                      <Button
+                        variant="success"
+                        className="d-flex align-items-center justify-content-center"
+                        onClick={() => handleWhatsAppClick(vehicle.title)}
+                      >
+                        <FaWhatsapp className="me-2" />
+                        Book via WhatsApp
+                      </Button>
+                      <Button
+                        variant="primary"
+                        className="d-flex align-items-center justify-content-center"
+                        onClick={handlePhoneClick}
+                      >
+                        <FaPhone className="me-2" />
+                        Call Now
+                      </Button>
+                    </div>
+                  </Card.Footer>
+                </Card>
               </Col>
             ))}
+          </Row>
+
+          <Row className="mt-4">
+            <Col className="text-center">
+              <Button
+                variant="outline-primary"
+                size="lg"
+                onClick={() => navigateTo("/vehicles")}
+              >
+                View All Vehicles <FaArrowRight className="ms-2" />
+              </Button>
+            </Col>
           </Row>
         </Container>
       </section>
 
       {/* Reviews Section */}
-      <section className="reviews-section py-5 bg-light">
+      <section className="reviews-section py-5">
         <Container>
           <Row className="mb-4">
             <Col md={8} className="mx-auto text-center">
@@ -408,7 +666,7 @@ const Home = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="contact-section py-5">
+      <section className="contact-section py-5 bg-light">
         <Container>
           <Row className="mb-4">
             <Col className="text-center">
@@ -424,7 +682,7 @@ const Home = () => {
               <Row>
                 <Col md={6} className="mb-4">
                   <div className="contact-method">
-                    <div className="contact-icon-container-">
+                    <div className="contact-icon-container">
                       <FaPhone className="contact-icon" />
                     </div>
                     <div className="contact-details">
@@ -432,14 +690,14 @@ const Home = () => {
                       <a href="tel:+919003414107" className="contact-link">
                         +91 90034 14107
                       </a>
-                      <p>Available 24/7 </p>
+                      <p>Available 24/7 for immediate assistance</p>
                     </div>
                   </div>
                 </Col>
 
                 <Col md={6} className="mb-4">
                   <div className="contact-method">
-                    <div className="contact-icon-container-">
+                    <div className="contact-icon-container">
                       <FaWhatsapp className="contact-icon" />
                     </div>
                     <div className="contact-details">
@@ -459,7 +717,7 @@ const Home = () => {
 
                 <Col md={6} className="mb-4">
                   <div className="contact-method">
-                    <div className="contact-icon-container-">
+                    <div className="contact-icon-container">
                       <FaEnvelope className="contact-icon" />
                     </div>
                     <div className="contact-details">
@@ -477,12 +735,12 @@ const Home = () => {
 
                 <Col md={6} className="mb-4">
                   <div className="contact-method">
-                    <div className="contact-icon-container-">
-                      <FaMapMarkerAlt className="contact-icon" />
+                    <div className="contact-icon-container">
+                      <FaMapMarkerAlt className="contact-icon-" />
                     </div>
                     <div className="contact-details">
                       <h3>Location</h3>
-                      <p>Combatore, Tamil Nadu</p>
+                      <p>Coimbatore, Tamil Nadu</p>
                       <p>Services available across India</p>
                     </div>
                   </div>
@@ -493,7 +751,7 @@ const Home = () => {
             <Col lg={4}>
               <div className="social-media-section h-100">
                 <h3>Connect With Us</h3>
-                <p>Follow us on social media for updates and offers</p>
+                <p>Follow us on social media for updates and special offers</p>
                 <div className="social-links mb-4">
                   <a
                     href="https://instagram.com/sreeganapathycaabs"
@@ -516,14 +774,75 @@ const Home = () => {
                 </div>
                 <div className="operating-hours">
                   <h4>Operating Hours</h4>
-                  <p>24/7 for emergency services</p>
-                  <p>Regular bookings: 6AM - 11PM</p>
+                  <p>
+                    <FaClock className="me-2" />
+                    24/7 for emergency services
+                  </p>
+                  <p>
+                    <FaClock className="me-2" />
+                    Regular bookings: 6AM - 11PM
+                  </p>
                 </div>
               </div>
             </Col>
           </Row>
         </Container>
       </section>
+
+      {/* Image Gallery Modal */}
+      <Modal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        size="lg"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>{currentVehicle?.title} Gallery</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {currentVehicle && currentVehicle.images && (
+            <div className="text-center">
+              <img
+                src={currentVehicle.images[currentImageIndex]}
+                alt={`${currentVehicle.title} view`}
+                className="img-fluid mb-3"
+                style={{ maxHeight: "60vh" }}
+              />
+              <div className="d-flex justify-content-center flex-wrap">
+                {currentVehicle.images.map((img, index) => (
+                  <img
+                    key={index}
+                    src={img}
+                    alt={`${currentVehicle.title} view ${index + 1}`}
+                    className={`thumbnail-img mx-1 mb-1 ${
+                      currentImageIndex === index ? "active-thumbnail" : ""
+                    }`}
+                    onClick={() => setCurrentImageIndex(index)}
+                    style={{
+                      width: "80px",
+                      height: "60px",
+                      objectFit: "cover",
+                      cursor: "pointer",
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => handleWhatsAppClick(currentVehicle?.title)}
+          >
+            <FaWhatsapp className="me-2" />
+            Book Now
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
