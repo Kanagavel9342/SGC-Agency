@@ -8,6 +8,7 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Packages', path: '/packages' },
+    { name: 'Blogs', path: '/blogs' },
     { name: 'Services', path: '/services' },
     { name: 'Vehicles', path: '/vehicles' },
     { name: 'About', path: '/about' },
