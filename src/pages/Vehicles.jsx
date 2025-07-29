@@ -86,10 +86,10 @@ const Vehicles = () => {
         "Ample luggage space",
       ],
       images: [
-        "/images/vehicles/innova-front.jpg",
-        "/images/vehicles/innova-back.jpeg",
-        "/images/vehicles/innova-inside.jpg",
-        "/images/vehicles/innova-inside2.jpg",
+        "/images/vehicles/innova-front.PNG",
+        "/images/vehicles/innova-front1.PNG",
+        "/images/vehicles/innova-inside.PNG",
+        "/images/vehicles/innova-outside.PNG",
       ],
     },
     {
@@ -171,10 +171,11 @@ const Vehicles = () => {
         "Ample luggage space",
       ],
       images: [
-        "/images/vehicles/tempo-14-front.jpg",
-        "/images/vehicles/tempo-14-back.jpg",
-        "/images/vehicles/tempo-14-inside.HEIC",
-        "/images/vehicles/tempo-14-inside2.jpg",
+       
+        "/images/vehicles/tempo-14-seater.jpg",
+         "/images/vehicles/tempo-inside1.jpg",
+        "/images/vehicles/tempo-14-outside.jpg",
+        "/images/vehicles/tempo-outside.jpg",
       ],
     },
     {
@@ -228,7 +229,7 @@ const Vehicles = () => {
         "Entertainment system",
       ],
       images: [
-        "/images/vehicles/volvo-front.JGP",
+        "/images/vehicles/volvo-front.JPG",
         "/images/vehicles/volvo-back.HEIC",
         "/images/vehicles/volvo-inside.JPG",
         "/images/vehicles/volvo-outside.JPG",
