@@ -119,10 +119,10 @@ const Vehicles = () => {
       kmRate: "₹12/km",
       features: ["AC", "Premium sedan", "Great comfort", "Excellent mileage"],
       images: [
-        "/images/vehicles/amaze-front.jpg",
-        "/images/vehicles/amaze-back.jpg",
-        "/images/vehicles/amaze-inside.jpg",
-        "/images/vehicles/amaze-outside.jpg",
+        "/images/vehicles/Amaze-front.jpeg",
+        "/images/vehicles/amagze-back.jpeg",
+        "/images/vehicles/amaze-inside.jpeg",
+        "/images/vehicles/amaze1-inside.jpeg",
       ],
     },
     {
@@ -230,8 +230,8 @@ const Vehicles = () => {
       ],
       images: [
         "/images/vehicles/volvo-front.JPG",
-        "/images/vehicles/volvo-back.HEIC",
-        "/images/vehicles/volvo-inside.JPG",
+        "/images/vehicles/volvo-back.JPG",
+        "/images/vehicles/volvo-inside.HEIC",
         "/images/vehicles/volvo-outside.JPG",
       ],
     },

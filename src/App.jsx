@@ -12,6 +12,8 @@ import Services from "./pages/service";
 import Vehicles from "./pages/Vehicles";
 import Contact from "./pages/Contect";
 import Top10CabServices from "./pages/Top10CabServices";
+import Top10TravelAgencies from "./pages/Top10TravelAgencies";
+import Top10VolvoBusServices from "./pages/Top10VolvoBusServices";
 import "./Styles/main.css";
 import "./Styles/animation.css";
 
@@ -32,6 +34,14 @@ function App() {
             <Route
               path="/top-10-cab-services-in-coimbatore"
               element={<Top10CabServices />}
+            />
+           <Route 
+              path="/top-10-travel-agencies-in-coimbatore" 
+              element={<Top10TravelAgencies />} 
+            />
+            <Route 
+              path="/top-10-volvo-bus-services-in-coimbatore" 
+              element={<Top10VolvoBusServices />} 
             />
           </Routes>
         </AnimatePresence>
