@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BiMinus } from "react-icons/bi";
 import { BsPlusLg } from "react-icons/bs";
 import { Helmet } from 'react-helmet-async';
-import bannerImage from '/public/hero.jpg'; 
+import bannerImage from '../'; 
 
 // Banner style configuration
 const bannerStyles = {
