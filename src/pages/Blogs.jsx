@@ -3,24 +3,31 @@ import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import "../Styles/blogs.css";
 
+import cabServicesImg from "../assets/mercedes-front.jpg";
+import volvoBusImg from"../../public/images/vehicles/volvo-front.JPG";
+import travelAgenciesImg from "../assets/hero.jpg";
+
 const BlogData = [
   {
     id: 1,
     name: "Top 10 Cab Services in Coimbatore",
     text: "Here are the top 10 cab services in Coimbatore, known for their quality craftsmanship and exceptional service.",
-    path: "/top-10-cab-services-in-coimbatore"
+    path: "/top-10-cab-services-in-coimbatore",
+    image: cabServicesImg
   },
   {
     id: 2,
     name: "Top 10 Volvo Bus Services in Coimbatore",
     text: "Here are the top 10 Volvo bus services in Coimbatore renowned for their creative excellence and transformative designs.",
-    path: "/top-10-volvo-bus-services-in-coimbatore"
+    path: "/top-10-volvo-bus-services-in-coimbatore",
+    image: volvoBusImg
   },
   {
     id: 3,
     name: "Top 10 Travel Agencies in Coimbatore",
     text: "Find the best travel agencies in Coimbatore to ensure the best quality for your sports or recreational area.",
-    path: "/top-10-travel-agencies-in-coimbatore"
+    path: "/top-10-travel-agencies-in-coimbatore",
+    image: travelAgenciesImg
   },
 ];
 
@@ -32,7 +39,7 @@ const Blogpost = ({ handleOrderPopup }) => {
   };
 
   return (
-    <div className="blogs-container px-4 md:ml-4">
+    <div className="blogs-container px-4">
       <Helmet>
         <title>Blog Posts | Sreeganapathycaabs</title>
         <meta
@@ -52,7 +59,11 @@ const Blogpost = ({ handleOrderPopup }) => {
                 className="blog-card"
               >
                 <div className="blog-image-container">
-                  <span className="blog-image-placeholder">Blog Image</span>
+                  <img 
+                    src={service.image} 
+                    alt={service.name}
+                    className="blog-image"
+                  />
                 </div>
                 <div className="blog-content">
                   <h1 className="blog-title">
