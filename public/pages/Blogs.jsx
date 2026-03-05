@@ -40,11 +40,9 @@ const Blogpost = ({ handleOrderPopup }) => {
           content="Read our blog posts to learn more about transportation services in Coimbatore."
         />
       </Helmet>
-      <h1 className="blogs-title">
-        BLOG POSTS
-      </h1>
-      <div className="blogs-content py-10 md:py-14 mb-10">
-        <div className="container mx-auto">
+      <h1 className="blogs-title">    BLOG POSTS </h1>
+      <div className="blogs-content py-10 md:py-14 mb-1">
+        <div className="container mx-auto ">
           <div className="blogs-grid">
             {BlogData.map((service) => (
               <div

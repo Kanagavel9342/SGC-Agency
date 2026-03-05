@@ -1,0 +1,39 @@
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  color: white;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  z-index: 9999;
+}
+
+/* Car Animation */
+.car {
+  width: 80px;
+  height: 40px;
+  background: yellow;
+  border-radius: 10px;
+  
+  animation: moveCar 2s infinite linear;
+}
+
+@keyframes moveCar {
+  0% {
+    transform: translateX(-200px);
+  }
+  100% {
+    transform: translateX(200px);
+  }
+}
+
+h2 {
+  margin-top: 20px;
+}

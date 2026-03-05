@@ -4,7 +4,7 @@ import '../Styles/footer.css';
 
 const Footer = () => {
   return (
-    <footer className="footer bg-dark text-white py-4 mt-5">
+    <footer className="footer bg-dark text-white py-4">
       <Container>
         {/* Desktop View (md and up) */}
         <Row className="d-none d-md-flex align-items-center">

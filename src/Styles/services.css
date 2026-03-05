@@ -1,40 +1,130 @@
+/* services.css */
+
 .services-page {
-  background-color: #f8f9fa;
   min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
 .service-card {
   background: white;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
   transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
 }
 
 .service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
-  border-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+  border-color: rgba(0, 123, 255, 0.2);
 }
 
 .service-icon {
   font-size: 2.5rem;
-  color: #0d6efd;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  color: white;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.service-icon span {
+  transform: scale(1.2);
+}
+
+.service-features {
+  border-top: 1px solid #dee2e6;
+  padding-top: 1rem;
+  margin-top: auto;
+}
+
+.feature-bullet {
+  color: #28a745;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.why-choose-us {
+  border-radius: 12px;
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.btn-outline-primary {
+  border-width: 2px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
 }
 
 /* Responsive adjustments */
-@media (max-width: 575.98px) {
+@media (max-width: 768px) {
+  .services-page {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
   .service-card {
     padding: 1.5rem !important;
   }
+
   .service-icon {
+    width: 60px;
+    height: 60px;
     font-size: 2rem;
+  }
+
+  .why-choose-us {
+    padding: 1.5rem !important;
   }
 }
 
-@media (min-width: 1200px) {
-  .service-card {
-    padding: 2rem;
+@media (max-width: 576px) {
+  .services-page h1 {
+    font-size: 2rem;
   }
-  .service-icon {
-    font-size: 3rem;
+
+  .services-page .lead {
+    font-size: 1rem;
   }
+}
+
+/* Animation for cards */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.service-card {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Accessibility focus states */
+.service-card:focus-within {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.btn:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
 }

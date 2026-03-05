@@ -15,15 +15,39 @@ import {
   FaMoneyBillWave,
   FaCar,
   FaImages,
+  FaSpinner,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Carousel, Card, Button, ListGroup, Modal } from "react-bootstrap";
+import { Container, Row, Col, Carousel, Card, Button, ListGroup, Modal, Form, Alert } from "react-bootstrap";
 import "../Styles/home.css";
 
 const Home = () => {
   const navigate = useNavigate();
+
+  // Form state for web3contact
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    pickupLocation: "",
+    dropLocation: "",
+    travelDate: "",
+    returnDate: "",
+    passengers: "1",
+    vehicleType: "",
+    message: "",
+  });
+
+  const [formStatus, setFormStatus] = useState({
+    submitting: false,
+    success: false,
+    error: false,
+    message: "",
+  });
+
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   // Hero images
   const heroImages = [
@@ -338,6 +362,63 @@ const Home = () => {
   const averageRating =
     reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
 
+  // Handle form input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus({ submitting: true, success: false, error: false, message: "" });
+
+    try {
+      // Here you would typically send the data to your backend
+      // For demonstration, we'll simulate an API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Simulate successful submission
+      setFormStatus({
+        submitting: false,
+        success: true,
+        error: false,
+        message: "Thank you! Your booking request has been received. We'll contact you shortly."
+      });
+      
+      setShowSuccessAlert(true);
+      
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        pickupLocation: "",
+        dropLocation: "",
+        travelDate: "",
+        returnDate: "",
+        passengers: "1",
+        vehicleType: "",
+        message: "",
+      });
+
+      // Auto-hide success message after 5 seconds
+      setTimeout(() => {
+        setShowSuccessAlert(false);
+      }, 5000);
+
+    } catch (error) {
+      setFormStatus({
+        submitting: false,
+        success: false,
+        error: true,
+        message: "Something went wrong. Please try again or contact us directly."
+      });
+    }
+  };
 
   return (
     <div className="home-page">
@@ -665,8 +746,246 @@ const Home = () => {
         </Container>
       </section>
 
+      {/* Web3Contact Form Section - NEW SECTION ADDED HERE */}
+      <section className="web3contact-section py-5 bg-light">
+        <Container>
+          <Row className="mb-4">
+            <Col className="text-center">
+              <h2>Quick Booking Request</h2>
+              <p className="subtitle">
+                Fill out the form below and we'll get back to you within 30 minutes
+              </p>
+            </Col>
+          </Row>
+
+          {/* Success Alert */}
+          {showSuccessAlert && formStatus.success && (
+            <Row className="mb-4">
+              <Col lg={8} className="mx-auto">
+                <Alert 
+                  variant="success" 
+                  onClose={() => setShowSuccessAlert(false)} 
+                  dismissible
+                  className="text-center"
+                >
+                  <Alert.Heading>Booking Request Sent!</Alert.Heading>
+                  <p>{formStatus.message}</p>
+                </Alert>
+              </Col>
+            </Row>
+          )}
+
+          {/* Error Alert */}
+          {formStatus.error && (
+            <Row className="mb-4">
+              <Col lg={8} className="mx-auto">
+                <Alert variant="danger" className="text-center">
+                  <Alert.Heading>Oops!</Alert.Heading>
+                  <p>{formStatus.message}</p>
+                </Alert>
+              </Col>
+            </Row>
+          )}
+
+          <Row>
+            <Col lg={10} className="mx-auto">
+              <div className="web3contact-form-wrapper p-4 p-md-5 bg-white rounded shadow">
+                <Form onSubmit={handleSubmit}>
+                  <Row>
+                    <Col md={6} className="mb-3">
+                      <Form.Group controlId="formName">
+                        <Form.Label>Full Name *</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          placeholder="Enter your full name"
+                          required
+                          disabled={formStatus.submitting}
+                        />
+                      </Form.Group>
+                    </Col>
+
+                    <Col md={6} className="mb-3">
+                      <Form.Group controlId="formEmail">
+                        <Form.Label>Email Address *</Form.Label>
+                        <Form.Control
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          placeholder="Enter your email"
+                          required
+                          disabled={formStatus.submitting}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col md={6} className="mb-3">
+                      <Form.Group controlId="formPhone">
+                        <Form.Label>Phone Number *</Form.Label>
+                        <Form.Control
+                          type="tel"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          placeholder="Enter your phone number"
+                          required
+                          disabled={formStatus.submitting}
+                        />
+                      </Form.Group>
+                    </Col>
+
+                    <Col md={6} className="mb-3">
+                      <Form.Group controlId="formVehicleType">
+                        <Form.Label>Vehicle Type</Form.Label>
+                        <Form.Select
+                          name="vehicleType"
+                          value={formData.vehicleType}
+                          onChange={handleInputChange}
+                          disabled={formStatus.submitting}
+                        >
+                          <option value="">Select vehicle type</option>
+                          <option value="sedan">Sedan (4 seater)</option>
+                          <option value="suv">SUV (7 seater)</option>
+                          <option value="tempo">Tempo Traveller (14 seater)</option>
+                          <option value="minibus">Mini Bus (25 seater)</option>
+                          <option value="volvo">Volvo Bus (35-45 seater)</option>
+                          <option value="luxury">Luxury Car</option>
+                        </Form.Select>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col md={6} className="mb-3">
+                      <Form.Group controlId="formPickup">
+                        <Form.Label>Pickup Location *</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="pickupLocation"
+                          value={formData.pickupLocation}
+                          onChange={handleInputChange}
+                          placeholder="Enter pickup location"
+                          required
+                          disabled={formStatus.submitting}
+                        />
+                      </Form.Group>
+                    </Col>
+
+                    <Col md={6} className="mb-3">
+                      <Form.Group controlId="formDrop">
+                        <Form.Label>Drop Location</Form.Label>
+                        <Form.Control
+                          type="text"
+                          name="dropLocation"
+                          value={formData.dropLocation}
+                          onChange={handleInputChange}
+                          placeholder="Enter drop location (if one-way)"
+                          disabled={formStatus.submitting}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col md={6} className="mb-3">
+                      <Form.Group controlId="formTravelDate">
+                        <Form.Label>Travel Date *</Form.Label>
+                        <Form.Control
+                          type="date"
+                          name="travelDate"
+                          value={formData.travelDate}
+                          onChange={handleInputChange}
+                          required
+                          disabled={formStatus.submitting}
+                        />
+                      </Form.Group>
+                    </Col>
+
+                    <Col md={6} className="mb-3">
+                      <Form.Group controlId="formReturnDate">
+                        <Form.Label>Return Date (if round trip)</Form.Label>
+                        <Form.Control
+                          type="date"
+                          name="returnDate"
+                          value={formData.returnDate}
+                          onChange={handleInputChange}
+                          disabled={formStatus.submitting}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col md={6} className="mb-3">
+                      <Form.Group controlId="formPassengers">
+                        <Form.Label>Number of Passengers *</Form.Label>
+                        <Form.Control
+                          type="number"
+                          name="passengers"
+                          value={formData.passengers}
+                          onChange={handleInputChange}
+                          min="1"
+                          max="50"
+                          required
+                          disabled={formStatus.submitting}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col className="mb-4">
+                      <Form.Group controlId="formMessage">
+                        <Form.Label>Additional Requirements</Form.Label>
+                        <Form.Control
+                          as="textarea"
+                          name="message"
+                          value={formData.message}
+                          onChange={handleInputChange}
+                          rows={3}
+                          placeholder="Tell us about any special requirements or preferences"
+                          disabled={formStatus.submitting}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <div className="text-center">
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      size="lg"
+                      className="px-5"
+                      disabled={formStatus.submitting}
+                    >
+                      {formStatus.submitting ? (
+                        <>
+                          <FaSpinner className="spinner me-2" />
+                          Submitting...
+                        </>
+                      ) : (
+                        "Submit Booking Request"
+                      )}
+                    </Button>
+                  </div>
+
+                  <p className="text-muted text-center mt-3 small">
+                    * Required fields. We respect your privacy and will never share your information.
+                  </p>
+                </Form>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+
       {/* Contact Section */}
-      <section className="contact-section py-5 bg-light">
+      <section className="contact-section py-5">
         <Container>
           <Row className="mb-4">
             <Col className="text-center">

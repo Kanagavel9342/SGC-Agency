@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
 import {
   FaInstagram,
@@ -15,228 +15,167 @@ import {
   FaMoneyBillWave,
   FaCar,
   FaImages,
+  FaChevronDown,
+  FaShieldAlt,
+  FaSmile,
+  FaRoute,
+  FaChevronRight,
+  FaPlane,
+  FaBuilding,
+  FaRoad,
+  FaMap
 } from "react-icons/fa";
-import { motion } from "framer-motion";
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { motion, useAnimation, useInView } from "framer-motion";
+import { IoMdCheckmarkCircle } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Carousel, Card, Button, ListGroup, Modal } from "react-bootstrap";
+import { 
+  Container, 
+  Row, 
+  Col, 
+  Button, 
+  Modal,
+  Badge
+} from "react-bootstrap";
+import { Parallax } from "react-parallax";
+import CountUp from 'react-countup';
 import "../Styles/home.css";
 
 const Home = () => {
   const navigate = useNavigate();
 
-  // Hero images
-  const heroImages = [
-    "/images/Hero.jpg",
-    "/images/Hero2.jpeg",
-    "/images/Hero3.jpg",
-    "/images/Hero4.jpg",
+  // Hero images with overlay text
+  const heroSlides = [
+    {
+      image: "/images/Hero.jpg",
+      title: "Premium Travel Experience",
+      subtitle: "Luxury & Comfort Combined",
+      cta: "Book Your Ride Today"
+    },
+    {
+      image: "/images/Hero2.jpeg",
+      title: "Across India Services",
+      subtitle: "Your Journey, Our Priority",
+      cta: "Explore Our Services"
+    },
+    {
+      image: "/images/Hero3.jpg",
+      title: "24/7 Reliable Service",
+      subtitle: "Always There When You Need Us",
+      cta: "Contact Us Now"
+    },
+    {
+      image: "/images/Hero4.jpg",
+      title: "Fleet of Luxury Vehicles",
+      subtitle: "Travel in Style & Comfort",
+      cta: "View Our Fleet"
+    }
   ];
 
   const services = [
     {
+      icon: <FaPlane />,
       title: "Airport Transfers",
-      description: "Hassle-free airport pickups and drop-offs",
-      icon: "✈️",
+      description: "Seamless airport pickups and drop-offs",
+      features: ["24/7 Service", "Flight Tracking", "Meet & Greet"],
+      color: "#3B82F6"
     },
     {
+      icon: <FaMap />,
       title: "Local Sightseeing",
-      description: "Explore city attractions with our guided tours",
-      icon: "🏙️",
+      description: "Explore city attractions with expert guides",
+      features: ["Flexible Routes", "Local Insights", "Photo Stops"],
+      color: "#10B981"
     },
     {
+      icon: <FaRoad />,
       title: "Outstation Trips",
       description: "Comfortable long-distance travel solutions",
-      icon: "🛣️",
+      features: ["Multiple Stops", "Driver Stay", "Flexible Timing"],
+      color: "#8B5CF6"
     },
     {
+      icon: <FaBuilding />,
       title: "Corporate Travel",
-      description: "Reliable transportation for business needs",
-      icon: "💼",
-    },
+      description: "Professional transportation for business needs",
+      features: ["Executive Class", "WiFi Available", "Document Safety"],
+      color: "#F59E0B"
+    }
+  ];
+
+  const stats = [
+    { icon: <FaShieldAlt />, title: "Verified Drivers", count: 150, suffix: "+", duration: 3 },
+    { icon: <FaCar />, title: "Happy Customers", count: 10000, suffix: "+", duration: 4 },
+    { icon: <FaRoute />, title: "Cities Covered", count: 85, suffix: "+", duration: 2.5 },
+    { icon: <FaSmile />, title: "Trips Completed", count: 50000, suffix: "+", duration: 5 }
   ];
 
   const vehicles = [
     {
       id: 1,
-      title: "Swift Desire",
-      type: "Maruti Suzuki",
-      capacity: "4 passengers",
-      dayRate: "₹1800/day",
-      kmRate: "₹9/km",
-      features: ["AC", "Fuel efficient", "Comfortable seating"],
-      images: [
-        "/images/vehicles/Swift Desire-dashboard.jpg",
-        "/images/vehicles/Swift Desire-Front.jpg",
-        "/images/vehicles/Swift Desire-inside.jpg",
-        "/images/vehicles/Swift Desire-inside2.jpg",
-      ],
+      title: "Toyota Innova",
+      type: "Luxury MPV",
+      capacity: "7 Passengers",
+      dayRate: "₹2500/day",
+      kmRate: "₹14/km",
+      features: ["AC", "Spacious", "Comfortable"],
+      images: ["/images/vehicles/innova-front.jpg"],
+      category: "premium"
     },
     {
       id: 2,
-      title: "Toyota Etios",
-      type: "Sedan",
-      capacity: "4 passengers",
-      dayRate: "₹1800/day",
-      kmRate: "₹9/km",
-      features: ["AC", "Spacious interior", "Comfortable ride", "Good mileage"],
-      images: [
-        "/images/vehicles/etios-front.jpg",
-        "/images/vehicles/etios-back.jpg",
-        "/images/vehicles/etios-inside.jpg",
-        "/images/vehicles/etios-inside2.jpg",
-      ],
+      title: "Honda Amaze",
+      type: "Premium Sedan",
+      capacity: "4 Passengers",
+      dayRate: "₹2200/day",
+      kmRate: "₹12/km",
+      features: ["AC", "Fuel Efficient", "Comfort"],
+      images: ["/images/vehicles/amaze-front.jpg"],
+      category: "sedan"
     },
     {
       id: 3,
-      title: "Toyota Innova",
-      type: "MPV",
-      capacity: "7 passengers",
-      dayRate: "₹2500/day",
-      kmRate: "₹14/km",
-      features: ["AC", "Spacious interior", "Comfortable for long rides"],
-      images: [
-        "/images/vehicles/innova-front.jpg",
-        "/images/vehicles/innova-back.jpeg",
-        "/images/vehicles/innova-inside.jpg",
-        "/images/vehicles/innova-inside2.jpg",
-      ],
+      title: "Toyota Etios",
+      type: "Economy Sedan",
+      capacity: "4 Passengers",
+      dayRate: "₹1800/day",
+      kmRate: "₹9/km",
+      features: ["AC", "Reliable", "Budget"],
+      images: ["/images/vehicles/etios-front.jpg"],
+      category: "economy"
     },
     {
       id: 4,
-      title: "Toyota Innova Crysta",
+      title: "Innova Crysta",
       type: "Premium MPV",
-      capacity: "7 passengers",
+      capacity: "7 Passengers",
       dayRate: "₹3000/day",
       kmRate: "₹15/km",
-      features: ["AC", "Premium interior", "Super comfortable"],
-      images: [
-        "/images/vehicles/innova-crysta-front.jpg",
-        "/images/vehicles/innova-crysta-back.jpeg",
-        "/images/vehicles/innova-crysta-inside.jpg",
-        "/images/vehicles/innova-crysta-inside2.jpeg",
-      ],
+      features: ["AC", "Premium", "Comfort"],
+      images: ["/images/vehicles/innova-crysta-front.jpg"],
+      category: "premium"
     },
     {
       id: 5,
-      title: "Honda Amaze",
-      type: "Sedan",
-      capacity: "4 passengers",
-      dayRate: "₹2200/day",
-      kmRate: "₹12/km",
-      features: ["AC", "Premium sedan", "Great comfort", "Excellent mileage"],
-      images: [
-        "/images/vehicles/amaze-front.jpg",
-        "/images/vehicles/amaze-back.jpg",
-        "/images/vehicles/amaze-inside.jpg",
-        "/images/vehicles/amaze-outside.jpg",
-      ],
+      title: "Swift Desire",
+      type: "Hatchback",
+      capacity: "4 Passengers",
+      dayRate: "₹1500/day",
+      kmRate: "₹8/km",
+      features: ["AC", "Compact", "Efficient"],
+      images: ["/images/vehicles/Swift Desire-Front.jpg"],
+      category: "hatchback"
     },
     {
       id: 6,
-      title: "Innova Hycross",
-      type: "Hybrid MPV",
-      capacity: "7 passengers",
-      dayRate: "₹4000/day",
-      kmRate: "₹20/km",
-      features: ["AC", "Hybrid technology", "Ultra comfortable"],
-      images: [
-        "/images/vehicles/hycross-front.jpg",
-        "/images/vehicles/hycross-back.jpg",
-        "/images/vehicles/hycross-inside.jpg",
-        "/images/vehicles/hycross-outside.jpg",
-      ],
-    },
-    {
-      id: 7,
-      title: "Force Urbania",
-      type: "Luxury Van",
-      capacity: "13-15 passengers",
-      dayRate: "₹10,000/day",
-      kmRate: "₹30/km",
-      features: ["AC", "Luxury interior", "Very spacious"],
-      images: [
-        "/images/vehicles/urbania-front.jpg",
-        "/images/vehicles/urbania-back.jpeg",
-        "/images/vehicles/urbania-inside.jpeg",
-        "/images/vehicles/urbania-inside2.jpeg",
-      ],
-    },
-    {
-      id: 8,
       title: "Tempo Traveller",
       type: "14 Seater",
-      capacity: "14 passengers",
-      dayRate: "₹3,500/day",
+      capacity: "14 Passengers",
+      dayRate: "₹3500/day",
       kmRate: "₹20/km",
-      features: ["AC", "Spacious", "Comfortable for groups"],
-      images: [
-        "/images/vehicles/tempo-14-front.jpg",
-        "/images/vehicles/tempo-14-back.jpg",
-        "/images/vehicles/tempo-14-inside.HEIC",
-        "/images/vehicles/tempo-14-inside2.jpg",
-      ],
-    },
-    {
-      id: 9,
-      title: "Tempo Traveller",
-      type: "18 Seater",
-      capacity: "18 passengers",
-      dayRate: "₹4,000/day",
-      kmRate: "₹20/km",
-      features: ["AC", "Very spacious", "Ideal for large groups"],
-      images: [
-        "/images/vehicles/tempo-18-front.jpg",
-        "/images/vehicles/tempo-18-back.jpg",
-        "/images/vehicles/tempo-18-inside.jpg",
-        "/images/vehicles/tempo-18-inside2.jpg",
-      ],
-    },
-    {
-      id: 10,
-      title: "25 Seater Mini Van",
-      type: "AC Mini Bus",
-      capacity: "25 passengers",
-      dayRate: "₹8,000/day",
-      kmRate: "₹30/km",
-      features: ["AC", "Very spacious", "Ideal for large groups"],
-      images: [
-        "/images/vehicles/minivan-front.jpg",
-        "/images/vehicles/minivan-back.jpg",
-        "/images/vehicles/minivan-inside.jpg",
-        "/images/vehicles/minivan-outside.jpg",
-      ],
-    },
-    {
-      id: 11,
-      title: "Volvo Bus",
-      type: "Luxury Bus",
-      capacity: "35-45 passengers",
-      dayRate: "₹21,000/day (150 kms free)",
-      kmRate: "₹110/km (extra)",
-      features: ["AC", "Ultra luxury", "Reclining seats"],
-      images: [
-        "/images/vehicles/volvo-front.JGP",
-        "/images/vehicles/volvo-back.HEIC",
-        "/images/vehicles/volvo-inside.JPG",
-        "/images/vehicles/volvo-outside.JPG",
-      ],
-    },
-    {
-      id: 12,
-      title: "Mercedes Benz E Class",
-      type: "Luxury Sedan",
-      capacity: "4 passengers",
-      dayRate: "5hr/50km: ₹7000 | 10hr/100km: ₹14000",
-      kmRate: "Extra: ₹1500/hr | ₹175/km",
-      features: ["Premium luxury", "Executive comfort", "Chauffeur driven"],
-      images: [
-        "/images/vehicles/mercedes-front.jpg",
-        "/images/vehicles/mercedes-back.jpg",
-        "/images/vehicles/mercedes-inside.jpg",
-        "/images/vehicles/mercedes-outside.jpg",
-      ],
-    },
+      features: ["AC", "Spacious", "Group Travel"],
+      images: ["/images/vehicles/tempo-14-front.jpg"],
+      category: "bus"
+    }
   ];
 
   const reviews = [
@@ -244,8 +183,7 @@ const Home = () => {
       id: 1,
       name: "Rajesh Kumar",
       rating: 5,
-      comment:
-        "Excellent service! The cab was clean and the driver was very professional. Will definitely use again.",
+      comment: "Excellent service! The cab was clean and the driver was very professional. Will definitely use again.",
       location: "Chennai, India",
       date: "2 weeks ago",
     },
@@ -253,8 +191,7 @@ const Home = () => {
       id: 2,
       name: "Priya Dharshini",
       rating: 4,
-      comment:
-        "Very good service overall. The driver was punctual and the vehicle was comfortable.",
+      comment: "Very good service overall. The driver was punctual and the vehicle was comfortable.",
       location: "Madurai, India",
       date: "1 month ago",
     },
@@ -262,82 +199,97 @@ const Home = () => {
       id: 3,
       name: "Arun",
       rating: 5,
-      comment:
-        "Best cab service I've used in India. The driver knew all the routes perfectly and was very courteous.",
+      comment: "Best cab service I've used in India. The driver knew all the routes perfectly and was very courteous.",
       location: "Mumbai, India",
       date: "3 weeks ago",
     },
   ];
 
-  const [currentHeroImage, setCurrentHeroImage] = useState(0);
-  const [currentReview, setCurrentReview] = useState(0);
-  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  // States
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [currentVehicle, setCurrentVehicle] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [showStats, setShowStats] = useState(false);
 
+  // Refs for animation triggers
+  const heroRef = useRef(null);
+  const servicesRef = useRef(null);
+  const vehiclesRef = useRef(null);
+  const statsRef = useRef(null);
+  const reviewsRef = useRef(null);
+
+  // Auto slide for hero
   useEffect(() => {
-    const heroInterval = setInterval(() => {
-      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
     }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      clearInterval(heroInterval);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [heroImages.length]);
-
+  // Scroll effect
   useEffect(() => {
-    let reviewInterval;
-    if (isAutoScrolling) {
-      reviewInterval = setInterval(() => {
-        setCurrentReview((prev) => (prev + 1) % reviews.length);
-      }, 8000);
-    }
-    return () => clearInterval(reviewInterval);
-  }, [isAutoScrolling, reviews.length]);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+      
+      // Check if stats section is in view
+      if (statsRef.current) {
+        const rect = statsRef.current.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.8) {
+          setShowStats(true);
+        }
+      }
+    };
+    
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const nextReview = () => {
-    setIsAutoScrolling(false);
-    setCurrentReview((prev) => (prev + 1) % reviews.length);
-    setTimeout(() => setIsAutoScrolling(true), 10000);
-  };
+  // Navigation
+  const navigateTo = (path) => navigate(path);
 
-  const prevReview = () => {
-    setIsAutoScrolling(false);
-    setCurrentReview((prev) => (prev - 1 + reviews.length) % reviews.length);
-    setTimeout(() => setIsAutoScrolling(true), 10000);
-  };
-
-  const navigateTo = (path) => {
-    navigate(path);
-  };
-
+  // WhatsApp function
   const handleWhatsAppClick = (vehicleName) => {
     const message = `Hi Sree Ganapathy Cabs, I'm interested in renting your ${vehicleName}. Please provide more details.`;
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/919003414107?text=${encodedMessage}`);
+    window.open(`https://wa.me/919003414107?text=${encodeURIComponent(message)}`);
   };
 
-  const handlePhoneClick = () => {
-    window.location.href = "tel:+919003414107";
-  };
-
+  // Modal functions
   const openImageModal = (vehicle, index = 0) => {
     setCurrentVehicle(vehicle);
     setCurrentImageIndex(index);
     setShowModal(true);
   };
 
-  const averageRating =
-    reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
 
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const scaleIn = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { duration: 0.5, ease: "backOut" }
+    }
+  };
 
   return (
     <div className="home-page">
@@ -346,122 +298,236 @@ const Home = () => {
         <title>Sree Ganapathy Cabs | Premium Cab Services Across India</title>
         <meta
           name="description"
-          content="Sree Ganapathy Cabs offers reliable and comfortable cab services in Coimbatore and across India. Book now for airport transfers, local sightseeing, and outstation trips."
+          content="Experience luxury travel with Sree Ganapathy Cabs. Premium cab services, airport transfers, outstation trips, and corporate travel across India."
         />
-        <meta
-          name="keywords"
-          content="cab services, taxi service, car rental, Coimbatore cabs, airport transfer, outstation cabs, tempo traveller, luxury cabs"
-        />
-        <meta property="og:title" content="Sree Ganapathy Cabs" />
-        <meta
-          property="og:description"
-          content="Premium Cab Services Across India"
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://sreeganapathycabs.com" />
+        <meta name="keywords" content="cab service, luxury cars, airport transfer, car rental, tempo traveller, corporate travel" />
+        <meta property="og:title" content="Sree Ganapathy Cabs | Premium Travel Solutions" />
+        <meta property="og:description" content="Your journey deserves the best. Experience premium cab services with luxury vehicles and professional drivers." />
         <meta property="og:image" content="/images/logo.png" />
       </Helmet>
-      {/* Floating WhatsApp and Call buttons */}
-      <div className="floating-buttons">
-        <a
+
+      {/* Floating Action Buttons */}
+      <div className={`floating-actions ${isScrolled ? 'scrolled' : ''}`}>
+        <motion.a
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
           href="https://wa.me/919003414107"
-          className="whatsapp-button"
+          className="floating-btn whatsapp-btn"
+          aria-label="Contact on WhatsApp"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
         >
           <FaWhatsapp />
-        </a>
-        <a href="tel:+919003414107" className="call-button">
+          <span className="floating-tooltip">Chat with us</span>
+        </motion.a>
+        <motion.a
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          href="tel:+919003414107"
+          className="floating-btn call-btn"
+          aria-label="Call us"
+        >
           <FaPhone />
-        </a>
+          <span className="floating-tooltip">Call now</span>
+        </motion.a>
       </div>
 
-      {/* Hero Section */}
-      <section className="hero-section">
-        <Carousel
-          activeIndex={currentHeroImage}
-          onSelect={setCurrentHeroImage}
-          controls={false}
-          indicators={false}
-        >
-          {heroImages.map((img, index) => (
-            <Carousel.Item key={index} interval={5000}>
-              <div
-                className="hero-slide"
-                style={{ backgroundImage: `url(${img})` }}
+      {/* Hero Carousel Section */}
+      <section className="hero-section" ref={heroRef}>
+        <div className="hero-carousel">
+          {heroSlides.map((slide, index) => (
+            <div
+              key={index}
+              className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
+            >
+              <div 
+                className="slide-image"
+                style={{
+                  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${slide.image})`
+                }}
               />
-            </Carousel.Item>
-          ))}
-        </Carousel>
+              <div className="slide-content">
+                <Container>
+                  <Row className="min-vh-100 align-items-center">
+                    <Col lg={8} xl={6}>
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="hero-text"
+                      >
+                        <Badge bg="warning" className="hero-badge mb-4">
+                          🚗 Premium Service Since 2010
+                        </Badge>
+                        
+                        <h1 className="display-4 fw-bold text-white mb-4">
+                          {slide.title}
+                        </h1>
+                        
+                        <p className="lead text-light mb-5">
+                          {slide.subtitle}
+                        </p>
 
-        <div className="hero-overlay">
-          <Container>
-            <Row>
-              <Col lg={8} className="mx-auto text-center">
-                <motion.h1
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                >
-                  Premium Cab Services Across India
-                </motion.h1>
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3, duration: 0.8 }}
-                  className="hero-subtitle"
-                >
-                  Safe, reliable and comfortable transportation solutions
-                </motion.p>
-                <div className="hero-buttons">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="cta-button primary"
-                    onClick={() => navigateTo("/packages")}
-                  >
-                    Explore Our Services <FaArrowRight />
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="cta-button secondary"
-                    onClick={() => navigateTo("/contact")}
-                  >
-                    Book Now <FaArrowRight />
-                  </motion.button>
-                </div>
-              </Col>
-            </Row>
-          </Container>
+                        <div className="hero-buttons d-flex flex-wrap gap-3">
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="btn btn-primary btn-lg px-4 py-3 d-flex align-items-center"
+                            onClick={() => navigateTo("/contact")}
+                          >
+                            {slide.cta}
+                            <FaArrowRight className="ms-2" />
+                          </motion.button>
+                          
+                          <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="btn btn-outline-light btn-lg px-4 py-3"
+                            onClick={() => navigateTo("/packages")}
+                          >
+                            View Packages
+                          </motion.button>
+                        </div>
+
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.5 }}
+                          className="hero-features mt-5 pt-4"
+                        >
+                          <div className="d-flex flex-wrap gap-4">
+                            {["✓ 24/7 Service", "✓ Verified Drivers", "✓ GPS Tracking", "✓ Instant Booking"].map((feature, idx) => (
+                              <div key={idx} className="d-flex align-items-center text-white">
+                                <IoMdCheckmarkCircle className="text-warning me-2" />
+                                <span>{feature}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      </motion.div>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
+            </div>
+          ))}
         </div>
+
+        {/* Carousel Indicators */}
+        <div className="carousel-indicators">
+          {heroSlides.map((_, index) => (
+            <button
+              key={index}
+              className={`indicator ${index === currentSlide ? 'active' : ''}`}
+              onClick={() => setCurrentSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5 }}
+          className="scroll-indicator"
+        >
+          <FaChevronDown />
+        </motion.div>
+      </section>
+
+      {/* Stats Section with Counting Animation */}
+      <section className="stats-section py-5" ref={statsRef}>
+        <Container>
+          <Row className="g-4">
+            {stats.map((stat, index) => (
+              <Col lg={3} md={6} key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="stat-card text-center"
+                >
+                  <div className="stat-icon mb-3" style={{ color: stat.color }}>
+                    {stat.icon}
+                  </div>
+                  <h3 className="stat-number">
+                    {showStats ? (
+                      <CountUp
+                        start={0}
+                        end={stat.count}
+                        duration={stat.duration}
+                        separator=","
+                        suffix={stat.suffix}
+                      />
+                    ) : (
+                      `0${stat.suffix}`
+                    )}
+                  </h3>
+                  <p className="stat-title">{stat.title}</p>
+                </motion.div>
+              </Col>
+            ))}
+          </Row>
+        </Container>
       </section>
 
       {/* Services Section */}
-      <section className="services-section py-5">
+      <section className="services-section py-5" ref={servicesRef}>
         <Container>
-          <Row className="mb-4">
+          <Row className="mb-5">
             <Col className="text-center">
-              <h2>Our Services</h2>
-              <p className="subtitle">
-                Comprehensive travel solutions tailored to your needs
-              </p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <span className="section-label">OUR SERVICES</span>
+                <h2 className="section-title">Premium Travel Solutions</h2>
+                <p className="section-subtitle">
+                  Tailored services for all your travel needs
+                </p>
+              </motion.div>
             </Col>
           </Row>
 
-          <Row>
+          <Row className="g-4">
             {services.map((service, index) => (
-              <Col md={6} lg={3} key={index} className="mb-4">
+              <Col lg={3} md={6} key={index}>
                 <motion.div
-                  className="service-card h-100"
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -10 }}
                   transition={{ delay: index * 0.1 }}
-                  whileHover={{ y: -5 }}
+                  className="service-card"
                 >
-                  <div className="service-icon">{service.icon}</div>
-                  <h3>{service.title}</h3>
-                  <p>{service.description}</p>
+                  <div 
+                    className="service-icon-wrapper mb-4"
+                    style={{ backgroundColor: service.color }}
+                  >
+                    {service.icon}
+                  </div>
+                  <h3 className="service-title mb-3">{service.title}</h3>
+                  <p className="service-description mb-4">{service.description}</p>
+                  
+                  <div className="service-features mb-4">
+                    {service.features.map((feature, idx) => (
+                      <div key={idx} className="service-feature">
+                        <IoMdCheckmarkCircle className="me-2" style={{ color: service.color }} />
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <Button
+                    variant="outline-primary"
+                    className="w-100"
+                    style={{ borderColor: service.color, color: service.color }}
+                    onClick={() => navigateTo("/services")}
+                  >
+                    Learn More
+                  </Button>
                 </motion.div>
               </Col>
             ))}
@@ -470,378 +536,378 @@ const Home = () => {
       </section>
 
       {/* Vehicles Section */}
-      <section className="vehicles-section py-5 bg-light">
+      <section className="vehicles-section py-5" ref={vehiclesRef}>
         <Container>
-          <Row className="mb-4">
+          <Row className="mb-5">
             <Col className="text-center">
-              <h2>Our Vehicle Fleet</h2>
-              <p className="subtitle">
-                Choose from our well-maintained vehicles for your comfortable
-                journey
-              </p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <span className="section-label">OUR FLEET</span>
+                <h2 className="section-title">Premium Vehicles</h2>
+                <p className="section-subtitle">
+                  Choose from our diverse range of well-maintained vehicles
+                </p>
+              </motion.div>
             </Col>
           </Row>
 
-          <Row xs={1} md={2} lg={3} className="g-4">
-            {vehicles.slice(0, 6).map((vehicle, index) => (
-              <Col key={index}>
-                <Card className="h-100 shadow-sm border-0 vehicle-card">
-                  <div className="position-relative">
+          <Row className="g-4">
+            {vehicles.map((vehicle, index) => (
+              <Col lg={4} md={6} key={vehicle.id}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -8 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="vehicle-card"
+                >
+                  <div className="vehicle-image-container">
                     {vehicle.images && vehicle.images.length > 0 && (
                       <>
-                        <Card.Img
-                          variant="top"
+                        <img
                           src={vehicle.images[0]}
                           alt={vehicle.title}
-                          className="vehicle-main-image"
-                          onClick={() => openImageModal(vehicle, 0)}
+                          className="vehicle-image"
+                          onError={(e) => {
+                            e.target.src = "/images/vehicle-placeholder.jpg";
+                          }}
                         />
+                        <Badge bg="warning" className="vehicle-badge">
+                          {vehicle.dayRate}
+                        </Badge>
+                        <Badge bg="info" className="vehicle-category">
+                          {vehicle.category}
+                        </Badge>
                         <Button
                           variant="light"
-                          className="position-absolute bottom-0 end-0 m-2 p-2 rounded-circle"
-                          onClick={() => openImageModal(vehicle, 0)}
+                          className="gallery-btn"
+                          onClick={() => openImageModal(vehicle)}
                         >
-                          <FaImages className="text-primary" />
+                          <FaImages />
                         </Button>
                       </>
                     )}
-                    <span className="position-absolute top-0 end-0 bg-warning text-dark p-2 m-2 rounded-pill fw-bold">
-                      {vehicle.dayRate}
-                    </span>
                   </div>
 
-                  <Card.Body>
-                    <Card.Title>
-                      {vehicle.title}
-                      <small className="d-block text-muted">
-                        {vehicle.type}
-                      </small>
-                    </Card.Title>
-
-                    <div className="d-flex justify-content-between mb-3">
-                      <span className="text-muted">
-                        <FaUserFriends className="text-primary me-1" />
+                  <div className="vehicle-content p-4">
+                    <div className="d-flex justify-content-between align-items-start mb-3">
+                      <div>
+                        <h4 className="vehicle-name mb-1">{vehicle.title}</h4>
+                        <p className="vehicle-type text-muted mb-0">{vehicle.type}</p>
+                      </div>
+                      <Badge bg="primary" className="vehicle-capacity">
                         {vehicle.capacity}
-                      </span>
-                      <span className="text-muted">
-                        <FaMoneyBillWave className="text-primary me-1" />
-                        {vehicle.kmRate}
-                      </span>
+                      </Badge>
                     </div>
 
-                    <Card.Text>
-                      <strong>Features:</strong>
-                    </Card.Text>
-                    <ListGroup variant="flush" className="mb-3">
-                      {vehicle.features.map((feature, i) => (
-                        <ListGroup.Item
-                          key={i}
-                          className="d-flex align-items-center"
-                        >
-                          <FaCar className="text-primary me-2" size={12} />
+                    <div className="vehicle-features mb-4">
+                      {vehicle.features.map((feature, idx) => (
+                        <span key={idx} className="feature-badge">
+                          <IoMdCheckmarkCircle className="me-1" />
                           {feature}
-                        </ListGroup.Item>
+                        </span>
                       ))}
-                    </ListGroup>
-                  </Card.Body>
-
-                  <Card.Footer className="bg-white border-0">
-                    <div className="d-grid gap-2">
-                      <Button
-                        variant="success"
-                        className="d-flex align-items-center justify-content-center"
-                        onClick={() => handleWhatsAppClick(vehicle.title)}
-                      >
-                        <FaWhatsapp className="me-2" />
-                        Book via WhatsApp
-                      </Button>
-                      <Button
-                        variant="primary"
-                        className="d-flex align-items-center justify-content-center"
-                        onClick={handlePhoneClick}
-                      >
-                        <FaPhone className="me-2" />
-                        Call Now
-                      </Button>
                     </div>
-                  </Card.Footer>
-                </Card>
+
+                    <div className="d-flex justify-content-between align-items-center">
+                      <div>
+                        <span className="rate-text">
+                          <FaMoneyBillWave className="me-1" />
+                          {vehicle.kmRate}
+                        </span>
+                      </div>
+                      <div className="d-flex gap-2">
+                        <Button
+                          variant="outline-primary"
+                          size="sm"
+                          onClick={() => openImageModal(vehicle)}
+                        >
+                          View
+                        </Button>
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          onClick={() => handleWhatsAppClick(vehicle.title)}
+                        >
+                          Book Now
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
               </Col>
             ))}
           </Row>
 
-          <Row className="mt-4">
-            <Col className="text-center">
-              <Button
-                variant="outline-primary"
-                size="lg"
-                onClick={() => navigateTo("/vehicles")}
-              >
-                View All Vehicles <FaArrowRight className="ms-2" />
-              </Button>
-            </Col>
-          </Row>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mt-5"
+          >
+            <Button
+              variant="primary"
+              size="lg"
+              className="px-5 py-3"
+              onClick={() => navigateTo("/vehicles")}
+            >
+              View All Vehicles <FaChevronRight className="ms-2" />
+            </Button>
+          </motion.div>
         </Container>
       </section>
 
       {/* Reviews Section */}
-      <section className="reviews-section py-5">
+      <section className="reviews-section py-5" ref={reviewsRef}>
         <Container>
-          <Row className="mb-4">
-            <Col md={8} className="mx-auto text-center">
-              <div className="section-header">
-                <h2>Customer Reviews</h2>
-                <div className="rating-summary">
-                  <div className="average-rating">
-                    {averageRating.toFixed(1)} <FaStar className="star" />
-                  </div>
-                  <p>Based on {reviews.length} reviews</p>
-                </div>
-              </div>
+          <Row className="mb-5">
+            <Col className="text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <span className="section-label">TESTIMONIALS</span>
+                <h2 className="section-title">What Our Clients Say</h2>
+                <p className="section-subtitle">
+                  Join thousands of satisfied customers
+                </p>
+              </motion.div>
             </Col>
           </Row>
 
-          <Row>
-            <Col className="position-relative">
-              <div className="reviews-container">
-                <button
-                  className="review-nav prev"
-                  onClick={prevReview}
-                  aria-label="Previous review"
+          <Row className="g-4">
+            {reviews.map((review, index) => (
+              <Col lg={4} md={6} key={review.id}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="review-card"
                 >
-                  <IoIosArrowBack />
-                </button>
+                  <div className="review-header mb-3">
+                    <div className="review-rating">
+                      {[...Array(5)].map((_, i) => (
+                        <FaStar
+                          key={i}
+                          className={i < review.rating ? "text-warning" : "text-muted"}
+                        />
+                      ))}
+                    </div>
+                    <FaQuoteLeft className="quote-icon text-primary" />
+                  </div>
 
-                <div className="reviews-slider">
-                  {reviews.map((review, index) => (
-                    <motion.div
-                      key={review.id}
-                      className={`review-card ${
-                        index === currentReview ? "active" : ""
-                      }`}
-                      initial={{ opacity: 0 }}
-                      animate={{
-                        opacity: index === currentReview ? 1 : 0,
-                        x:
-                          index === currentReview
-                            ? 0
-                            : index < currentReview
-                            ? -50
-                            : 50,
-                      }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <div className="rating">
-                        {[...Array(5)].map((_, i) => (
-                          <FaStar
-                            key={i}
-                            className={i < review.rating ? "filled" : ""}
-                          />
-                        ))}
-                      </div>
-                      <FaQuoteLeft className="quote-icon" />
-                      <p className="review-text">{review.comment}</p>
-                      <div className="review-author">
-                        <h4>{review.name}</h4>
-                        <div className="review-meta">
-                          <span>{review.location}</span>
-                          <span>{review.date}</span>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
+                  <p className="review-text">{review.comment}</p>
+
+                  <div className="review-footer mt-4 pt-3 border-top">
+                    <div className="review-author">
+                      <h5 className="mb-1">{review.name}</h5>
+                      <p className="text-muted mb-0">
+                        <FaMapMarkerAlt className="me-1" />
+                        {review.location}
+                      </p>
+                    </div>
+                    <span className="review-date text-muted">
+                      <FaClock className="me-1" />
+                      {review.date}
+                    </span>
+                  </div>
+                </motion.div>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
+
+      {/* CTA Section */}
+      <section className="cta-section py-5">
+        <Container>
+          <Row className="align-items-center">
+            <Col lg={8} className="mb-4 mb-lg-0">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-white mb-3">Ready for Your Next Journey?</h2>
+                <p className="text-white-50 mb-0">
+                  Experience premium travel with our professional drivers and luxury vehicles
+                </p>
+              </motion.div>
+            </Col>
+            <Col lg={4}>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="text-lg-end"
+              >
+                <div className="d-flex flex-wrap gap-3 justify-content-lg-end">
+                  <Button
+                    variant="light"
+                    size="lg"
+                    className="px-4 py-3"
+                    onClick={() => navigateTo("/contact")}
+                  >
+                    Book Now <FaArrowRight className="ms-2" />
+                  </Button>
+                  <Button
+                    variant="outline-light"
+                    size="lg"
+                    className="px-4 py-3"
+                    onClick={() => handleWhatsAppClick("Cab Service")}
+                  >
+                    <FaWhatsapp className="me-2" />
+                    WhatsApp
+                  </Button>
                 </div>
-
-                <button
-                  className="review-nav next"
-                  onClick={nextReview}
-                  aria-label="Next review"
-                >
-                  <IoIosArrowForward />
-                </button>
-              </div>
+              </motion.div>
             </Col>
           </Row>
         </Container>
       </section>
 
       {/* Contact Section */}
-      <section className="contact-section py-5 bg-light">
+      <section className="contact-section py-5">
         <Container>
-          <Row className="mb-4">
-            <Col className="text-center">
-              <h2>Get In Touch</h2>
-              <p className="subtitle">
-                We're available 24/7 to assist with your travel needs
-              </p>
-            </Col>
-          </Row>
-
-          <Row>
-            <Col lg={8} className="mb-4 mb-lg-0">
-              <Row>
-                <Col md={6} className="mb-4">
-                  <div className="contact-method">
-                    <div className="contact-icon-container">
-                      <FaPhone className="contact-icon-" />
-                    </div>
-                    <div className="contact-details">
-                      <h3>Call Us</h3>
-                      <a href="tel:+919003414107" className="contact-link">
-                        +91 90034 14107
-                      </a>
-                      <p>Available 24/7 for immediate assistance</p>
-                    </div>
-                  </div>
-                </Col>
-
-                <Col md={6} className="mb-4">
-                  <div className="contact-method">
-                    <div className="contact-icon-container">
-                      <FaWhatsapp className="contact-icon-" />
-                    </div>
-                    <div className="contact-details">
-                      <h3>WhatsApp</h3>
-                      <a
-                        href="https://wa.me/919003414107"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="contact-link"
-                      >
-                        Chat Now
-                      </a>
-                      <p>Instant response during business hours</p>
-                    </div>
-                  </div>
-                </Col>
-
-                <Col md={6} className="mb-4">
-                  <div className="contact-method">
-                    <div className="contact-icon-container">
-                      <FaEnvelope className="contact-icon-" />
-                    </div>
-                    <div className="contact-details">
-                      <h3>Email</h3>
-                      <a
-                        href="mailto:sreeganapathycaabs@gmail.com"
-                        className="contact-link"
-                      >
-                        sreeganapathycaabs@gmail.com
-                      </a>
-                      <p>For detailed inquiries and bookings</p>
-                    </div>
-                  </div>
-                </Col>
-
-                <Col md={6} className="mb-4">
-                  <div className="contact-method">
-                    <div className="contact-icon-container">
-                      <FaMapMarkerAlt className="contact-icon-" />
-                    </div>
-                    <div className="contact-details">
-                      <h3>Location</h3>
-                      <p>Coimbatore, Tamil Nadu</p>
-                      <p>Services available across India</p>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-
-            <Col lg={4}>
-              <div className="social-media-section h-100">
-                <h3>Connect With Us</h3>
-                <p>Follow us on social media for updates and special offers</p>
-                <div className="social-links mb-4">
-                  <a
-                    href="https://instagram.com/sreeganapathycaabs"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-link-"
+          <Row className="g-4">
+            {[
+              {
+                icon: <FaPhone />,
+                title: "24/7 Support",
+                text: "+91 90034 14107",
+                action: () => window.location.href = "tel:+919003414107",
+                color: "#007bff"
+              },
+              {
+                icon: <FaWhatsapp />,
+                title: "Instant Booking",
+                text: "Chat on WhatsApp",
+                action: () => handleWhatsAppClick("Cab Service"),
+                color: "#25D366"
+              },
+              {
+                icon: <FaEnvelope />,
+                title: "Email Us",
+                text: "sreeganapathycaabs@gmail.com",
+                action: () => window.location.href = "mailto:sreeganapathycaabs@gmail.com",
+                color: "#6f42c1"
+              },
+              {
+                icon: <FaMapMarkerAlt />,
+                title: "Location",
+                text: "Coimbatore, Tamil Nadu",
+                action: () => navigateTo("/contact"),
+                color: "#fd7e14"
+              }
+            ].map((contact, index) => (
+              <Col lg={3} md={6} key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.05 }}
+                  className="contact-card"
+                  onClick={contact.action}
+                >
+                  <div 
+                    className="contact-icon mb-3"
+                    style={{ backgroundColor: contact.color }}
                   >
-                    <FaInstagram className="social-icon" />
-                    <span>Instagram</span>
-                  </a>
-                  <a
-                    href="https://facebook.com/sreeganapathycaabs"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-link"
-                  >
-                    <FaFacebook className="social-icon" />
-                    <span>Facebook</span>
-                  </a>
-                </div>
-                <div className="operating-hours">
-                  <h4>Operating Hours</h4>
-                  <p>
-                    <FaClock className="me-2" />
-                    24/7 for emergency services
-                  </p>
-                  <p>
-                    <FaClock className="me-2" />
-                    Regular bookings: 6AM - 11PM
-                  </p>
-                </div>
-              </div>
-            </Col>
+                    {contact.icon}
+                  </div>
+                  <h5 className="contact-title mb-2">{contact.title}</h5>
+                  <p className="contact-text mb-0">{contact.text}</p>
+                </motion.div>
+              </Col>
+            ))}
           </Row>
         </Container>
       </section>
 
-      {/* Image Gallery Modal */}
+      {/* Image Modal */}
       <Modal
         show={showModal}
         onHide={() => setShowModal(false)}
         size="lg"
         centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title>{currentVehicle?.title} Gallery</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {currentVehicle && currentVehicle.images && (
-            <div className="text-center">
-              <img
-                src={currentVehicle.images[currentImageIndex]}
-                alt={`${currentVehicle.title} view`}
-                className="img-fluid mb-3"
-                style={{ maxHeight: "60vh" }}
-              />
-              <div className="d-flex justify-content-center flex-wrap">
-                {currentVehicle.images.map((img, index) => (
+        {currentVehicle && (
+          <>
+            <Modal.Header closeButton>
+              <Modal.Title>{currentVehicle.title}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {currentVehicle.images && currentVehicle.images.length > 0 ? (
+                <div className="text-center">
                   <img
-                    key={index}
-                    src={img}
-                    alt={`${currentVehicle.title} view ${index + 1}`}
-                    className={`thumbnail-img mx-1 mb-1 ${
-                      currentImageIndex === index ? "active-thumbnail" : ""
-                    }`}
-                    onClick={() => setCurrentImageIndex(index)}
-                    style={{
-                      width: "80px",
-                      height: "60px",
-                      objectFit: "cover",
-                      cursor: "pointer",
+                    src={currentVehicle.images[currentImageIndex]}
+                    alt={currentVehicle.title}
+                    className="img-fluid rounded mb-3"
+                    style={{ maxHeight: "60vh", width: "100%", objectFit: "cover" }}
+                    onError={(e) => {
+                      e.target.src = "/images/vehicle-placeholder.jpg";
                     }}
                   />
-                ))}
+                  {currentVehicle.images.length > 1 && (
+                    <div className="d-flex justify-content-center flex-wrap gap-2">
+                      {currentVehicle.images.map((img, index) => (
+                        <img
+                          key={index}
+                          src={img}
+                          alt={`${currentVehicle.title} ${index + 1}`}
+                          className={`thumbnail ${currentImageIndex === index ? 'active' : ''}`}
+                          onClick={() => setCurrentImageIndex(index)}
+                          onError={(e) => {
+                            e.target.src = "/images/vehicle-placeholder.jpg";
+                          }}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="text-center py-5">
+                  <FaCar size={48} className="text-muted mb-3" />
+                  <p>No images available for this vehicle</p>
+                </div>
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              <div className="w-100">
+                <h5>{currentVehicle.title}</h5>
+                <p className="text-muted mb-3">{currentVehicle.type} • {currentVehicle.capacity}</p>
+                <div className="d-flex justify-content-between align-items-center">
+                  <div>
+                    <span className="text-success fw-bold">{currentVehicle.dayRate}</span>
+                    <span className="text-muted ms-2">{currentVehicle.kmRate}</span>
+                  </div>
+                  <div className="d-flex gap-2">
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                      Close
+                    </Button>
+                    <Button 
+                      variant="primary"
+                      onClick={() => {
+                        setShowModal(false);
+                        handleWhatsAppClick(currentVehicle.title);
+                      }}
+                    >
+                      <FaWhatsapp className="me-2" />
+                      Book Now
+                    </Button>
+                  </div>
+                </div>
               </div>
-            </div>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Close
-          </Button>
-          <Button
-            variant="primary"
-            onClick={() => handleWhatsAppClick(currentVehicle?.title)}
-          >
-            <FaWhatsapp className="me-2" />
-            Book Now
-          </Button>
-        </Modal.Footer>
+            </Modal.Footer>
+          </>
+        )}
       </Modal>
     </div>
   );
