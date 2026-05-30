@@ -616,8 +616,8 @@ const Home = () => {
                     <div className="d-flex justify-content-between align-items-center">
                       <div>
                         <span className="rate-text">
-                          <FaMoneyBillWave className="me-1" />
-                          {vehicle.kmRate}
+                          {/* <FaMoneyBillWave className="me-1" /> */}
+                          {/* {vehicle.kmRate} */}
                         </span>
                       </div>
                       <div className="d-flex gap-2">

@@ -53,7 +53,7 @@ const TourPackages = () => {
       ],
       idealFor: "Families, Couples",
       distance: "85 km from Coimbatore",
-      price: "₹8,499 per person",
+      // price: "₹8,499 per person",
     },
     {
       id: 2,
@@ -68,7 +68,7 @@ const TourPackages = () => {
       includes: ["Luxury Resort", "All Meals", "Private Cab", "Entry Tickets"],
       idealFor: "Honeymooners, Nature Lovers",
       distance: "175 km from Coimbatore",
-      price: "₹9,999 per person",
+      // price: "₹9,999 per person",
     },
     {
       id: 3,
@@ -88,7 +88,7 @@ const TourPackages = () => {
       ],
       idealFor: "Families, Solo Travelers",
       distance: "130 km from Coimbatore",
-      price: "₹12,500 per person",
+      // price: "₹12,500 per person",
     },
     {
       id: 4,
@@ -108,7 +108,7 @@ const TourPackages = () => {
       ],
       idealFor: "Couples, Senior Citizens",
       distance: "280 km from Coimbatore",
-      price: "₹11,200 per person",
+      // price: "₹11,200 per person",
     },
     {
       id: 5,
@@ -123,7 +123,7 @@ const TourPackages = () => {
       includes: ["Jungle Resort", "Trekking Guide", "Jeep Safari", "Campfire"],
       idealFor: "Adventure Seekers",
       distance: "200 km from Coimbatore",
-      price: "₹13,750 per person",
+      // price: "₹13,750 per person",
     },
     {
       id: 6,
